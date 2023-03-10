@@ -6,7 +6,7 @@ from flask import send_file
 
 
 
-logusuario=""
+
 app=Flask(__name__)
 
 mysql=MySQL()
@@ -43,8 +43,13 @@ def Crear():
 
 @app.route('/login.html')
 def login():
-    Valida="0"
-    return render_template('empleados/login.html',valida=Valida)
+    sql2="SELECT * FROM `usuario`;"
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql2)
+    empleados=cursor.fetchall()
+    conn.commit()
+    return render_template('empleados/login.html',empleados=empleados)
 
 
 
@@ -66,39 +71,7 @@ def store():
     cursor.execute(sql2)
     empleados=cursor.fetchall()
     conn.commit()
-    print(empleados[1][1])
     return render_template('empleados/register.html',empleados=empleados)
-
-
-@app.route('/validate', methods=['POST'])
-def validate():
-    _Correo=request.form['Correo']
-    _contraseña=request.form['contraseña']
-    
-    Valida="0"
-    sql2="SELECT * FROM `usuario` WHERE `Correo` = %s;"
-    conn=mysql.connect()
-    cursor=conn.cursor()
-    cursor.execute(sql2,_Correo)
-    usuario=cursor.fetchall()
-    ver=(usuario[0][5])
-    
-    conn.commit()
-    print(_contraseña)
-    if ver==_contraseña:
-        user=(usuario[0][1])
-        Valida="0"
-        print(usuario[0][1])
-        return render_template('empleados/Principal.html',valida=Valida, user=user )
-    else:
-        Valida="1"
-        return render_template('empleados/login.html',valida=Valida)
-        
-    
-
-
-    
-
 
 @app.route('/register.html')
 def Registro():

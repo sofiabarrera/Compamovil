@@ -36,18 +36,27 @@
                     <div class="col-lg-6 py-5">
                         <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
                             <h1 class="text-center text-white mb-4">Inicio de sesión</h1>
-                            <form>
+                            <form  method="post" action="/validate">
                                 <div class="form-group">
-                                    <input type="email" class="form-control border-0 p-4" placeholder="Correo electrónico"
+                                    <!-- Appointment End -->
+                                    <input  name="Correo" id ="Correo" type="email" class="form-control border-0 p-4" placeholder="Correo electrónico"
                                         required="required" />
                                 </div>
+                                <!-- Appointment End -->
                                 <div class="form-group">
-                                    <input id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Contraseña"
+                                    <input name="contraseña" id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Contraseña"
                                         required="required" />
                                 </div>                           
                                 <div>
                                     <button class="btn btn-primary btn-block border-0 py-3" type="submit">Iniciar sesión</button>
                                 </div>
+                                <div>
+                                {% if valida == "1" %}
+                                <h4>La contraseña o el correo es incorrecto</h4>
+                                {% endif %}
+                                </div>
+                                
+                                
                             </form>
                         </div>
                     </div>

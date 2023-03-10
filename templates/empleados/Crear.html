@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Inicio</title>
+</head>
+<body>
+
+<form method="post" action="/store" enctype="multipart/form-data">
+    <center>
+    Nombre:
+    <input type="text" name="Nombre" id="Nombre">
+    <br>
+    ID
+    <input type="text" name="ID" id="ID">
+    <br>
+    Correo
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Numero
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Fecha
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Contraseña
+    <input type="text" name="Foto" id="Foto">
+    <br>
+
+
+    <input type="submit" value="Agregar">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>numero</th>
+                <th>Fecha Nacimiento</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleados in empleados %}
+            <tr>
+                <td>{{empleados[0]}}</td>
+                <td>{{empleados[1]}}</td>
+                <td>{{empleados[2]}}</td>
+                <td>{{empleados[3]}}</td>
+                <td>{{empleados[4]}}</td>
+                <td>Eliminar | Editar</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    </center>
+
+</form>
+</body>
+</html>
