@@ -33,13 +33,14 @@ def index():
 
 @app.route('/Crear.html')
 def Crear():
+    
     sql2="SELECT * FROM `usuario`;"
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql2)
     empleados=cursor.fetchall()
     conn.commit()
-    return render_template('empleados/Crear.html',empleados=empleados)
+    return render_template('empleados/Crear.html',empleados=empleados, user=logusuario)
 
 @app.route('/login.html')
 def login():
@@ -67,7 +68,7 @@ def store():
     empleados=cursor.fetchall()
     conn.commit()
     print(empleados[1][1])
-    return render_template('empleados/register.html',empleados=empleados)
+    return render_template('empleados/login.html',empleados=empleados)
 
 
 @app.route('/validate', methods=['POST'])
@@ -86,10 +87,10 @@ def validate():
     conn.commit()
     print(_contraseña)
     if ver==_contraseña:
-        user=(usuario[0][1])
+        logusuario=(usuario[0][1])
         Valida="0"
         print(usuario[0][1])
-        return render_template('empleados/Principal.html',valida=Valida, user=user )
+        return render_template('empleados/Principal.html',valida=Valida, user=logusuario )
     else:
         Valida="1"
         return render_template('empleados/login.html',valida=Valida)
