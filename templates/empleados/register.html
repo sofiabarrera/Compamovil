@@ -38,27 +38,61 @@
                             <h1 class="text-center text-white mb-4">Registrarse</h1>
                             <form method="post" action="/store">
                                 <div class="form-group">  <!-- Appointment End -->
+
+
                                     <input type="text" name="Nombre" id="Nombre" class="form-control border-0 p-4" placeholder="Nombre y apellidos" required="required" />
                                 </div>
+                                {% if con[0] == 1 %}                                                           
+                                <h5 class="text-white mb-2">El nombre es muy corto</h5>                           
+                                {% endif %}
+
                                 <div class="form-group"><!-- Appointment End -->
                                     <input type="email" name="Correo" id ="Correo" class="form-control border-0 p-4" placeholder="Correo electrónico" required="required" />
                                 </div>
+                                {% if con[1] == 1 %}                                                           
+                                <h5 class="text-white mb-2">Este campo esta incompleto</h5>                           
+                                {% endif %}
+
+
                                 <div class="form-group"><!-- Appointment End -->
                                     <input type="phone" name ="celular" id ="celular" class="form-control border-0 p-4" placeholder="Número de celular" required="required" />
-                                </div>                                
+                                </div>
+                                {% if con[2] == 1 %}                                                           
+                                <h5 class="text-white mb-2">Ingrese un numero de celular correcto</h5>                           
+                                {% endif %}
+                                
                                 <div class="form-group"><!-- Appointment End -->
                                     <div class="date" data-target-input="nearest">
                                         <input type="text" name="date" id="date"  class="form-control border-0 p-4 datetimepicker-input" placeholder="Fecha de Nacimiento" data-target="#date" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
+                                {% if con[4] == 1 %}                                                           
+                                <h5 class="text-white mb-2">El numero de ceular e</h5>                           
+                                {% endif %}
+
                                 <div class="form-group"><!-- Appointment End -->
                                     <input name="contraseña" id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Contraseña"
                                         required="required" />
                                 </div>
+                                <div>
+                                    {% if con[3] == 1 %}
+                                                            
+                                    <h5 class="text-white mb-2">La contraseña es muy corta</h5>
+                                
+                                    {% endif %}
+                                </div>
+
                                 <div class="form-group"><!-- Appointment End -->
-                                    <input id="contraseñaRepeat" class="form-control border-0 p-4" type="password" placeholder="Vuelva a digitar su contraseña"
+                                    <input name="contraseñaRepeat" id="contraseñaRepeat" class="form-control border-0 p-4" type="password" placeholder="Vuelva a digitar su contraseña"
                                         required="required" />
-                                </div>                                
+                                </div>  
+                                {% if con[5] == 1 %}
+                                                            
+                                <h5 class="text-white mb-2">Las contraseñas no coinciden</h5>
+                            
+                                {% endif %}
+
+                                                              
                                 <div>
                                     <button class="btn btn-primary btn-block border-0 py-3" type="submit">Registrarse</button>
                                 </div>

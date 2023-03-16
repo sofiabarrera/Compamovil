@@ -54,21 +54,61 @@ def store():
     sql="INSERT INTO `usuario` (`nombre`, `Correo`, `Numero`, `Nacimiento`, `Contraseña`) VALUES (%s, %s, %s, %s, %s);"
     sql2="SELECT * FROM `usuario`;"
 
+    validar=0
+
+    
+    con=""
+    validarN=0
+    validarCOR=0
+    validarCel=0
+    validarContra=0
+    validarReContra=1
+    validarD=0
+
     _nombre=request.form['Nombre']
     _Correo=request.form['Correo']
     _celular=request.form['celular']
     _date=request.form['date']
     _contraseña=request.form['contraseña']
+    _REcontraseña=request.form['contraseñaRepeat']
 
     datos=(_nombre,_Correo,_celular,_date,_contraseña)
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute(sql,datos)
     cursor.execute(sql2)
-    empleados=cursor.fetchall()
     conn.commit()
-    print(empleados[1][1])
-    return render_template('empleados/login.html',empleados=empleados)
+    if _contraseña==_REcontraseña:
+        validar=1
+        validarReContra=0
+
+    if len(_contraseña)<=5:
+        validar=1
+        validarContra=1
+
+    if len(_Correo)<=5:
+        validar=1
+        validarCOR=1
+
+    if len(_celular)<=5:
+        validar=1
+        validarCel=1
+
+    if len(_nombre)<=5:
+        validar=1
+        validarN=1
+
+
+    con=(validarN,validarCOR,validarCel,validarContra,validarD,validarReContra)
+    if validar==1:
+        print(con[4])
+        return render_template('empleados/register.html', con=con)
+
+    if validar==0:
+        cursor.execute(sql,datos)  
+        empleados=cursor.fetchall()
+        return render_template('empleados/register.html')
+
+
 
 
 @app.route('/validate', methods=['POST'])
@@ -83,13 +123,12 @@ def validate():
     cursor.execute(sql2,_Correo)
     usuario=cursor.fetchall()
     ver=(usuario[0][5])
-    
     conn.commit()
-    print(_contraseña)
+
     if ver==_contraseña:
+
         logusuario=(usuario[0][1])
         Valida="0"
-        print(usuario[0][1])
         return render_template('empleados/Principal.html',valida=Valida, user=logusuario )
     else:
         Valida="1"
@@ -103,8 +142,15 @@ def validate():
 
 @app.route('/register.html')
 def Registro():
-
-    return render_template('empleados/register.html')
+    con=""
+    validarN="0"
+    validarCOR="0"
+    validarCel="0"
+    validarContra="0"
+    validarReContra="1"
+    validarD="0"
+    con=(validarN,validarCOR,validarCel,validarContra,validarD)
+    return render_template('empleados/register.html', con=con)
 
 
 
