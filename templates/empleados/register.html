@@ -37,16 +37,16 @@
                         <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
                             <h1 class="text-center text-white mb-4">Registrarse</h1>
                             <form method="post" action="/store">
-                                <div class="form-group">  <!-- Appointment End -->
-
-
-                                    <input type="text" name="Nombre" id="Nombre" class="form-control border-0 p-4" placeholder="Nombre y apellidos" required="required" />
+                                <div class="form-group">  
+                                    
+                                <!-- Nombre -->
+                                <input type="text" name="Nombre" id="Nombre" class="form-control border-0 p-4" placeholder="Nombre y apellidos" required="required" />
                                 </div>
                                 {% if con[0] == 1 %}                                                           
                                 <h5 class="text-white mb-2">El nombre es muy corto</h5>                           
                                 {% endif %}
 
-                                <div class="form-group"><!-- Appointment End -->
+                                <div class="form-group"><!-- Correo -->
                                     <input type="email" name="Correo" id ="Correo" class="form-control border-0 p-4" placeholder="Correo electrónico" required="required" />
                                 </div>
                                 {% if con[1] == 1 %}                                                           
@@ -54,23 +54,23 @@
                                 {% endif %}
 
 
-                                <div class="form-group"><!-- Appointment End -->
-                                    <input type="phone" name ="celular" id ="celular" class="form-control border-0 p-4" placeholder="Número de celular" required="required" />
+                                <div class="form-group"><!-- Movil -->
+                                    <input type="number" name ="celular" id ="celular" class="form-control border-0 p-4" placeholder="Número de celular" required="required" />
                                 </div>
                                 {% if con[2] == 1 %}                                                           
                                 <h5 class="text-white mb-2">Ingrese un numero de celular correcto</h5>                           
                                 {% endif %}
                                 
-                                <div class="form-group"><!-- Appointment End -->
+                                <div class="form-group"><!-- Fecha -->
                                     <div class="date" data-target-input="nearest">
-                                        <input type="text" name="date" id="date"  class="form-control border-0 p-4 datetimepicker-input" placeholder="Fecha de Nacimiento" data-target="#date" data-toggle="datetimepicker" />
-                                    </div>
+                                                <input type="date" name="date" id="date"  class="form-control border-0 p-4 datetimepicker-input" placeholder="Fecha de Nacimiento" data-target="#date" data-toggle="datetimepicker" />
+                                            </div>
                                 </div>
                                 {% if con[4] == 1 %}                                                           
                                 <h5 class="text-white mb-2">El numero de ceular e</h5>                           
                                 {% endif %}
 
-                                <div class="form-group"><!-- Appointment End -->
+                                <div class="form-group"><!-- Contraseña -->
                                     <input name="contraseña" id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Contraseña"
                                         required="required" />
                                 </div>
@@ -82,7 +82,7 @@
                                     {% endif %}
                                 </div>
 
-                                <div class="form-group"><!-- Appointment End -->
+                                <div class="form-group"><!-- Repetir contraseña -->
                                     <input name="contraseñaRepeat" id="contraseñaRepeat" class="form-control border-0 p-4" type="password" placeholder="Vuelva a digitar su contraseña"
                                         required="required" />
                                 </div>  
@@ -95,6 +95,7 @@
                                                               
                                 <div>
                                     <button class="btn btn-primary btn-block border-0 py-3" type="submit">Registrarse</button>
+                                    <a class="btn btn-primary btn-block border-0 py-3" href="/">Regresar</a>
                                 </div>
                                 
 

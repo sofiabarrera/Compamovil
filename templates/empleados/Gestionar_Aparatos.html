@@ -1,3 +1,78 @@
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Inicio</title>
+</head>
+<body>
+    <H1>ESTO SOLO ES UNA PAGINA DE PRUEVA NO TOMAR EN CUENTA</H1>
+    <h2>BIENVENIDO SEÑOR@ USUARIO {{ session.name }}</h2>
+<form method="post" action="/store" enctype="multipart/form-data">
+    <center>
+    Nombre:
+    <input type="text" name="Nombre" id="Nombre">
+    <br>
+    ID
+    <input type="text" name="ID" id="ID">
+    <br>
+    Correo
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Numero
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Fecha
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Contraseña
+    <input type="text" name="Foto" id="Foto">
+    <br>
+
+
+    <input type="submit" value="Agregar">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>numero</th>
+                <th>Fecha Nacimiento</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleados in empleados %}
+            <tr>
+                <td>{{empleados[0]}}</td>
+                <td>{{empleados[1]}}</td>
+                <td>{{empleados[2]}}</td>
+                <td>{{empleados[3]}}</td>
+                <td>{{empleados[4]}}</td>
+                <td>Eliminar | Editar</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    </center>
+
+</form>
+</body>
+</html>
+
+
+-->
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,12 +154,8 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/home" class="nav-item nav-link active">Home</a>
-                            {% if session.name == 1 %}
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
-                            {% endif %}
                             {% if session.name == 2 %}
                             <a href="/Crear.html" class="nav-item nav-link">Gestionar Usuarios</a>
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
                             {% endif %}
                             <a href="#" class="nav-item nav-link">Favoritos</a>
 
@@ -94,6 +165,7 @@
                                 style="width: 80px; border-radius: 100%; margin-left: 50px; margin-top: 5px;">
                             <div class="header__menu">
                                 <div class="header__menu--profile">
+                                    <img src="./images/LOGOFINAL.png" alt="">
                                     <a class="btn btn-primary px-3 mt-1" href="/" style="margin-bottom: 12px;">Cerrar
                                         Sesión</a>
                                 </div>
@@ -107,26 +179,45 @@
     <!-- Header End -->
     <center>
         <div class="box">
-            <div class="container-3" style="margin-top: 30px;">
+            <div style="margin-bottom: 20px; margin-top: 20px;"class="container-3">
                 <span class="icon"><i class="fa fa-search"></i></span>
                 <input style="width: 500px; margin-right: 20px;" type="search" id="search" placeholder="Busdcar por correo" />
                 <img class="filter" style="width: 20px; margin-right: 20px;" src="./img/crud/filtrar.png" />
+                <a class="btn btn-primary px-3 mt-1" href="/Crear_Aparato" style="margin-bottom: 12px;">Crear dispositivos</a>
             </div>
-            <table class="table table-light" style="width: 1000px; ">
-                <table class="table table-light" style="width: 1000px; ">
+            <table class="table table-light" style="width: 1500px; margin-bottom: 250px;">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Imagen</th>
-                        <th>Modelo</th>
-                        <th>Descripcion</th>
+                        <th>ID</th>
+                        <th>Procesador</th>
+                        <th>Software</th>
+                        <th>Conectividad</th>
+                        <th>Bateria</th>
+                        <th>Precio</th>
+                        <th>Resolucion</th>
+                        <th>Uso normal</th>
+                        <th>resumen</th>
+                        <th>acciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    {% for aparato in aparato %}
+                    {% for dispositivos in dispositivos %}
                     <tr>
-                        <td><img class="filter" style="width: 80px;" src="./img/crud/Apple-movil-png.png" /></td>
-                        <td><a href="#">{{aparato[1]}}</a></td>
-                        <td><p><b>Software:</b> {{aparato[2]}}</p><p><b>Tamaño:</b> {{aparato[6]}}</p> <p><b>Bateria:</b> {{aparato[4]}}</p>  {{aparato[8]}}</td>
+                        <td>{{dispositivos[0]}}</td>
+                        <td>{{dispositivos[1]}}</td>
+                        <td>{{dispositivos[2]}}</td>
+                        <td>{{dispositivos[3]}}</td>
+                        <td>{{dispositivos[4]}}</td>
+                        <td>{{dispositivos[5]}}</td>
+                        <td>{{dispositivos[6]}}</td>
+                        <td>{{dispositivos[7]}}</td>
+                        <td>{{dispositivos[8]}}</td>
+                        <td>
+                            <a href="/Borrar/{{dispositivos[0]}}aparato">Eliminar </a> 
+                            | 
+                            <a href="/Actualizar_AP/{{dispositivos[0]}}">Editar </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,3 +1,78 @@
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Inicio</title>
+</head>
+<body>
+    <H1>ESTO SOLO ES UNA PAGINA DE PRUEVA NO TOMAR EN CUENTA</H1>
+    <h2>BIENVENIDO SEÑOR@ USUARIO {{ session.name }}</h2>
+<form method="post" action="/store" enctype="multipart/form-data">
+    <center>
+    Nombre:
+    <input type="text" name="Nombre" id="Nombre">
+    <br>
+    ID
+    <input type="text" name="ID" id="ID">
+    <br>
+    Correo
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Numero
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Fecha
+    <input type="text" name="Foto" id="Foto">
+    <br>
+    Contraseña
+    <input type="text" name="Foto" id="Foto">
+    <br>
+
+
+    <input type="submit" value="Agregar">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>numero</th>
+                <th>Fecha Nacimiento</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleados in empleados %}
+            <tr>
+                <td>{{empleados[0]}}</td>
+                <td>{{empleados[1]}}</td>
+                <td>{{empleados[2]}}</td>
+                <td>{{empleados[3]}}</td>
+                <td>{{empleados[4]}}</td>
+                <td>Eliminar | Editar</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    </center>
+
+</form>
+</body>
+</html>
+
+
+-->
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,11 +154,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/home" class="nav-item nav-link active">Home</a>
-                            {% if session.name == 1 %}
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
-                            {% endif %}
                             {% if session.name == 2 %}
-                            <a href="/Crear.html" class="nav-item nav-link">Gestionar Usuarios</a>
                             <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
                             {% endif %}
                             <a href="#" class="nav-item nav-link">Favoritos</a>
@@ -94,6 +165,7 @@
                                 style="width: 80px; border-radius: 100%; margin-left: 50px; margin-top: 5px;">
                             <div class="header__menu">
                                 <div class="header__menu--profile">
+
                                     <a class="btn btn-primary px-3 mt-1" href="/" style="margin-bottom: 12px;">Cerrar
                                         Sesión</a>
                                 </div>
@@ -105,83 +177,84 @@
         </div>
     </div>
     <!-- Header End -->
+    <div>
     <center>
         <div class="box">
-            <div class="container-3" style="margin-top: 30px;">
-                <span class="icon"><i class="fa fa-search"></i></span>
-                <input style="width: 500px; margin-right: 20px;" type="search" id="search" placeholder="Busdcar por correo" />
-                <img class="filter" style="width: 20px; margin-right: 20px;" src="./img/crud/filtrar.png" />
+            <div style="margin-bottom: 20px; margin-top: 20px;"class="container-3">
             </div>
-            <table class="table table-light" style="width: 1000px; ">
-                <table class="table table-light" style="width: 1000px; ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Imagen</th>
-                        <th>Modelo</th>
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for aparato in aparato %}
-                    <tr>
-                        <td><img class="filter" style="width: 80px;" src="./img/crud/Apple-movil-png.png" /></td>
-                        <td><a href="#">{{aparato[1]}}</a></td>
-                        <td><p><b>Software:</b> {{aparato[2]}}</p><p><b>Tamaño:</b> {{aparato[6]}}</p> <p><b>Bateria:</b> {{aparato[4]}}</p>  {{aparato[8]}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div>
+                        <div class="row h-100 align-items-center justify-content-center">
+                            <div class="col-lg-6 py-5">
+                                <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
+                                    <h1 class="text-center text-white mb-4">Registrar Dispocitivo</h1>
+                                    <form method="post" action="/store_Aparato">
+
+
+
+                                        <div class="form-group">  <!-- PROCESADOR -->
+                                            <input type="text" name="Procesador" id="Procesador" class="form-control border-0 p-4" placeholder="Procesador" required="required" />
+                                        </div>
+        
+                                        <div class="form-group"><!-- Software -->
+                                            <input type="text" name="Software" id ="Software" class="form-control border-0 p-4" placeholder="Software" required="required" />
+                                        </div>
+        
+        
+                                        <div class="form-group"><!-- Conectividad -->
+                                            <input name ="Conectividad" id ="Conectividad" class="form-control border-0 p-4" type="text" placeholder="Conectividad" required="required" />
+                                        </div>
+
+                                        
+                                        <div class="form-group"><!-- Bateria -->
+                                            
+                                                <input type="text" name="Bateria" id="Bateria"  class="form-control border-0 p-4" placeholder="Bateria" data-target="#date" data-toggle="datetimepicker" />
+                                            
+                                        </div>
+                                        <div class="form-group"><!-- Precio -->
+                                            <input name="Precio" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio"
+                                                required="required" />
+                                        </div>
+                                        <div>
+                                        </div>
+        
+                                        <div class="form-group"><!-- Resolucion -->
+                                            <input name="Resolucion" id="Resolucion" class="form-control border-0 p-4" type="text " placeholder="Resolucion"
+                                                required="required" />
+                                        </div>  
+
+                                        <div class="form-group"><!-- Uso normal -->
+                                            <input name="Uso normal" id="Uso normal" class="form-control border-0 p-4" type="text" placeholder="uso recomendado"
+                                                required="required" />
+                                        </div> 
+                                        
+                                        <div class="form-group"><!-- Resumen -->
+                                            <textarea id="Resumen" class="form-control" name="Resumen" placeholder="Resumen" rows="5"></textarea>
+                                        </div>
+
+                                                                      
+                                        <div>
+                                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Crear</button>
+                                        </div>
+                                        
+        
+        
+        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
     </center>
     </div>
 
 
 
     <!-- Footer Start -->
-    <footer>
-        <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
-            <div class="row mt-5">
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-map-marker-alt text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Our Office</h5>
-                            <p class="m-0">En la universidad</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-envelope-open text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Email Us</h5>
-                            <p class="m-0">info@example.com</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-phone-alt text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Call Us</h5>
-                            <p class="m-0">+012 345 6789</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pt-5">
-            </div>
-            <div class="row p-4 mt-5 mx-0" style="background: rgba(256, 256, 256, .05);">
-                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0 text-white">&copy; <a class="font-weight-bold" href="#">Compamovil</a>. All Rights
-                        Reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML
-                            Codex</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <!-- Footer End -->
 
 
