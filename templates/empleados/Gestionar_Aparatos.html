@@ -161,8 +161,9 @@
 
                         </div>
                         <header class="header">
-                            <img class="header__img" src="/img" alt=""
+                            <a href="/perfil"><img class="header__img" src="/img" alt=""
                                 style="width: 80px; border-radius: 100%; margin-left: 50px; margin-top: 5px;">
+                            </a>
                             <div class="header__menu">
                                 <div class="header__menu--profile">
                                     <img src="./images/LOGOFINAL.png" alt="">
@@ -185,15 +186,14 @@
                 <img class="filter" style="width: 20px; margin-right: 20px;" src="./img/crud/filtrar.png" />
                 <a class="btn btn-primary px-3 mt-1" href="/Crear_Aparato" style="margin-bottom: 12px;">Crear dispositivos</a>
             </div>
-            <table class="table table-light" style="width: 1500px; margin-bottom: 250px;">
+            <table class="table table-light" style="width: 1500px; margin-bottom: 360px;">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
                         <th>Procesador</th>
                         <th>Software</th>
                         <th>Conectividad</th>
                         <th>Bateria</th>
-                        <th>Precio</th>
+                        <th>Rango de precio</th>
                         <th>Resolucion</th>
                         <th>Uso normal</th>
                         <th>resumen</th>
@@ -204,15 +204,14 @@
                 <tbody>
                     {% for dispositivos in dispositivos %}
                     <tr>
-                        <td>{{dispositivos[0]}}</td>
                         <td>{{dispositivos[1]}}</td>
                         <td>{{dispositivos[2]}}</td>
                         <td>{{dispositivos[3]}}</td>
                         <td>{{dispositivos[4]}}</td>
-                        <td>{{dispositivos[5]}}</td>
-                        <td>{{dispositivos[6]}}</td>
+                        <td><p>{{dispositivos[5]}}</p>-<p>{{dispositivos[6]}}</p> </td>
                         <td>{{dispositivos[7]}}</td>
                         <td>{{dispositivos[8]}}</td>
+                        <td>{{dispositivos[9]}}</td>
                         <td>
                             <a href="/Borrar/{{dispositivos[0]}}aparato">Eliminar </a> 
                             | 

@@ -1,31 +1,29 @@
 from flask import Flask
-from flask import Flask, session
-from flask_session import Session
 from flask import Flask, render_template, redirect, request, session
+from flask_session import Session
 from flaskext.mysql import MySQL
 from flask import send_from_directory
 from flask import send_file
 from flask import flash
 
 
-var=""
-
 app=Flask(__name__)
-app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 mysql=MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
-app.config['MYSQL_DATABASE_PORT']=3307
+app.config['MYSQL_DATABASE_PORT']=3306
 app.config['MYSQL_DATABASE_USER']='root'
-app.config['MYSQL_DATABASE_PASSWORD']='1234'
+app.config['MYSQL_DATABASE_PASSWORD']=''
 app.config['MYSQL_DATABASE_DB']='usuario'
 mysql.init_app(app)
 
 @app.route('/')
 def index():
-
+    session["name"] = ""
+    session["ID"] = ""
     sql="SELECT * FROM `usuario`;"
     conn=mysql.connect()
     cursor=conn.cursor()
@@ -42,14 +40,22 @@ def index():
 @app.route('/Crear.html')
 def Crear():
 
-
+ if session['name'] == 2:
     sql2="SELECT * FROM `usuario`;"
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql2)
     empleados=cursor.fetchall()
     conn.commit()
-    return render_template('empleados/Crear.html',empleados=empleados, vara=vara)
+    return render_template('empleados/Usuarios.html',empleados=empleados)
+ else:
+     return render_template('empleados/index.html')
+
+
+
+
+
+
 
 @app.route('/login.html')
 def login():
@@ -58,42 +64,64 @@ def login():
 
 
 
+
+
+
 @app.route('/store_Aparato', methods=['POST'])
 def store_Aparato():
 
+    if session['name'] == 2 or session['name'] == 1:
+        sql="INSERT INTO `aparato` (`Procesador`, `Software`, `Conectividad`, `Bateria`, `Precio medio`, `Resolucion pantalla`, `Mejor Uso`, `Resumen`, `ADMIN_ID`) VALUES (%s,%s,%s, %s, %s, %s, %s,%s,%s);"
 
-    sql="INSERT INTO `aparato` (`Procesador`, `Software`, `Conectividad`, `Bateria`, `Precio medio`, `Resolucion pantalla`, `Mejor Uso`, `Resumen`, `ADMIN_ID`) VALUES (%s,%s,%s, %s, %s, %s, %s,%s,%s);"
-
-    _Procesador=request.form['Procesador']
-    _Software=request.form['Software']
-    _Conectividad=request.form['Conectividad']
-    _Bateria=request.form['Bateria']
-    _Precio=request.form['Precio']
-    _Resolucion=request.form['Resolucion']
-    _Uso=request.form['Uso normal']
-    _Resumen=request.form['Resumen']
-    _Admin= session["ID"]
+        _Procesador=request.form['Procesador']
+        _Software=request.form['Software']
+        _Conectividad=request.form['Conectividad']
+        _Bateria=request.form['Bateria']
+        _Precio=request.form['Precio']
+        _Resolucion=request.form['Resolucion']
+        _Uso=request.form['Uso normal']
+        _Resumen=request.form['Resumen']
+        _Admin= session["ID"]
 
 
-    datos=(_Procesador,_Software,_Conectividad,_Bateria,_Precio,_Resolucion,_Uso,_Resumen,_Admin)
-    conn=mysql.connect()
-    cursor=conn.cursor()      
-    cursor.execute(sql,datos)  
-    conn.commit()
+        datos=(_Procesador,_Software,_Conectividad,_Bateria,_Precio,_Resolucion,_Uso,_Resumen,_Admin)
+        conn=mysql.connect()
+        cursor=conn.cursor()      
+        cursor.execute(sql,datos)  
+        conn.commit()
 
-    return redirect("/Gestion_dispositivos")
+        return redirect("/Gestion_dispositivos")
+    else:
+        return render_template('empleados/index.html')
+
+
+
+
+
+
 
 
 @app.route('/Actualizar_AP/<int:id>')
 def Actualizar_AP(id):
-    sql="SELECT * FROM `aparato` WHERE ID= %s;" 
-    conn=mysql.connect()
-    cursor=conn.cursor() 
-    cursor.execute(sql,(id))  
-    empleados=cursor.fetchall()
-    print(empleados)
-    conn.commit()
-    return render_template('empleados/Actualizar_Aparato.html', aparato=empleados)
+
+    if session['name'] == 2 or session['name'] == 1:
+        sql="SELECT * FROM `aparato` WHERE ID= %s;" 
+        conn=mysql.connect()
+        cursor=conn.cursor() 
+        cursor.execute(sql,(id))  
+        empleados=cursor.fetchall()
+        print(empleados)
+        conn.commit()
+        return render_template('empleados/Actualizar_Aparato.html', aparato=empleados)
+    else:
+        return render_template('empleados/index.html')
+    
+
+
+
+
+
+
 
 
 
@@ -121,6 +149,10 @@ def Actualizar_Aparato(id):
     conn.commit()
 
     return redirect("/Gestion_dispositivos")
+
+
+
+
 
 
 
@@ -184,8 +216,70 @@ def store():
         cursor.execute(sql2)       
         cursor.execute(sql,datos)  
         conn.commit()
-        empleados=cursor.fetchall()
         return render_template('empleados/login.html')
+
+
+
+@app.route('/Guardar_ADM', methods=['POST'])
+def Guardar():
+    sql="INSERT INTO `usuario` (`nombre`, `Correo`, `Numero`, `Nacimiento`, `Contraseña`) VALUES (%s, %s, %s, %s, %s);"
+    sql2="SELECT * FROM `usuario`;"
+
+    validar=0
+
+    
+    con=""
+    validarN=0
+    validarCOR=0
+    validarCel=0
+    validarContra=0
+    validarReContra=1
+    validarD=0
+
+    _nombre=request.form['Nombre']
+    _Correo=request.form['Correo']
+    _celular=request.form['celular']
+    _date=request.form['date']
+    _contraseña=request.form['contraseña']
+    _REcontraseña=request.form['contraseñaRepeat']
+    _TIPO=request.form['Tipo']
+
+    
+    if _contraseña==_REcontraseña:
+        validarReContra=0
+
+    if len(_contraseña)<=5:
+        validar=1
+        validarContra=1
+
+    if len(_Correo)<=5:
+        validar=1
+        validarCOR=1
+
+    if len(_celular)<=5:
+        validar=1
+        validarCel=1
+
+    if len(_nombre)<=2:
+        validar=1
+        validarN=1
+
+
+    con=(validarN,validarCOR,validarCel,validarContra,validarD,validarReContra)
+    if validar==1:
+        return render_template('empleados/register.html', con=con)
+
+    if validar==0:
+        sql="INSERT INTO `usuario` (`nombre`, `Correo`, `Numero`, `Nacimiento`, `Contraseña`,`tipo`) VALUES (%s, %s, %s, %s, %s,%s);"
+        sql2="SELECT * FROM `usuario`;"
+        datos=(_nombre,_Correo,_celular,_date,_contraseña,_TIPO)
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql2)       
+        cursor.execute(sql,datos)  
+        conn.commit()
+        empleados=cursor.fetchall()
+        return redirect('/Crear.html')
 
 
 
@@ -226,42 +320,53 @@ def validate():
 
 @app.route("/home")
 def home():
-    sql="SELECT * FROM `aparato`;" 
-    conn=mysql.connect()
-    cursor=conn.cursor()
-    cursor.execute(sql)  
-    empleados=cursor.fetchall()
-    conn.commit()
-    return render_template('empleados/Principal.html', aparato=empleados)
+
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+        sql="SELECT * FROM `aparato`;" 
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Principal.html', aparato=empleados)
+    else:
+        return render_template('empleados/index.html')
 
 
 
 @app.route("/Gestion_dispositivos")
 def gestionar():
-    sql="SELECT * FROM `aparato` WHERE `ADMIN_ID` = %s;" 
-    empleados=""
-    _ID=session["ID"]
-    conn=mysql.connect()
-    cursor=conn.cursor()
-    cursor.execute(sql,_ID)  
-    empleados=cursor.fetchall()
-    conn.commit()
-    return render_template('empleados/Gestionar_Aparatos.html', dispositivos=empleados)
+    if session['name'] == 2 or session['name'] == 1:
+        sql="SELECT * FROM `aparato` WHERE `ADMIN_ID` = %s;" 
+        empleados=""
+        _ID=session["ID"]
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,_ID)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Gestionar_Aparatos.html', dispositivos=empleados)
+    else:
+        return render_template('empleados/index.html')
 
 
 
 @app.route('/Borrar/<int:id><string:Tabla>')
 def borrar(Tabla,id):
-    sql="DELETE FROM "+Tabla+" WHERE id=%s;"   
-    conn=mysql.connect()
-    cursor=conn.cursor()
-    cursor.execute(sql,id)  
-    conn.commit()
-    if Tabla == "aparato":
-        return redirect("/Gestion_dispositivos")
+    if session['name'] == 2 or session['name'] == 1:
+        sql="DELETE FROM "+Tabla+" WHERE id=%s;"   
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,id)  
+        conn.commit()
+        if Tabla == "aparato":
+            return redirect("/Gestion_dispositivos")
 
-    if Tabla == "usuario":
-        return redirect("/Gestion_dispositivos")
+        if Tabla == "usuario":
+            return redirect("/Crear.html")
+    else:
+        return render_template('empleados/index.html')
+
 
 
     
@@ -279,10 +384,245 @@ def Registro():
     con=(validarN,validarCOR,validarCel,validarContra,validarD)
     return render_template('empleados/register.html', con=con)
 
-@app.route('/Crear_Aparato')
-def Registro_Aparato():
+@app.route('/RegistroUser')
+def Registro_ADM():
+    con=""
+    validarN="0"
+    validarCOR="0"
+    validarCel="0"
+    validarContra="0"
+    validarReContra="1"
+    validarD="0"
+    con=(validarN,validarCOR,validarCel,validarContra,validarD)
+    return render_template('empleados/Resgistro_ADM.html', con=con)
 
-    return render_template('empleados/Crear_Aparato.html')
+@app.route("/Gestion_dispositivos")
+def Gestion():
+    if session['name'] == 2 or session['name'] == 1:
+        sql="SELECT * FROM `aparato` WHERE `ADMIN_ID` = %s;" 
+        empleados=""
+        _ID=session["ID"]
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,_ID)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Gestionar_Aparatos.html', dispositivos=empleados)
+    else:
+        return render_template('empleados/index.html')
+
+
+@app.route("/Editar_Usuario/<int:id>")
+def EditarU(id):
+    if session['name'] == 2 :
+        sql="SELECT * FROM `usuario` WHERE `ID` = %s;" 
+        con=""
+        validarN="0"
+        validarCOR="0"
+        validarCel="0"
+        validarContra="0"
+        validarReContra="1"
+        validarD="0"
+        con=(validarN,validarCOR,validarCel,validarContra,validarD)
+        empleados=""
+        _ID=id
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,_ID)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Editar_User.html', Usuario=empleados, con=con)
+    else:
+        return render_template('empleados/index.html')
+
+
+
+
+
+@app.route('/Actualizar_U/<int:id>', methods=['POST'])
+def ACTUU(id):
+
+    sql2="SELECT * FROM `usuario`;"
+
+    validar=0
+
+    
+    con=""
+    validarN=0
+    validarCOR=0
+    validarCel=0
+    validarContra=0
+    validarReContra=1
+    validarD=0
+
+    _ID=id
+    _nombre=request.form['Nombre']
+    _Correo=request.form['Correo']
+    _celular=request.form['celular']
+    _date=request.form['date']
+    _contraseña=request.form['contraseña']
+    _REcontraseña=request.form['contraseñaRepeat']
+
+    
+    if _contraseña==_REcontraseña:
+        validarReContra=0
+
+    if len(_contraseña)<=5:
+        validar=1
+        validarContra=1
+
+    if len(_Correo)<=5:
+        validar=1
+        validarCOR=1
+
+    if len(_celular)<=5:
+        validar=1
+        validarCel=1
+
+    if len(_nombre)<=2:
+        validar=1
+        validarN=1
+
+
+    con=(validarN,validarCOR,validarCel,validarContra,validarD,validarReContra)
+    if validar==1:
+        return render_template('empleados/register.html', con=con)
+
+    if validar==0:
+        sql="UPDATE `usuario` SET `nombre` = %s, `Correo` = %s, `Numero` = %s, `Nacimiento` = %s, `Contraseña` = %s, `Tipo` = %s WHERE `usuario`.`ID` = %s"
+        sql2="SELECT * FROM `usuario`;"
+        __TIPO=request.form['Tipo']
+        datos=(_nombre,_Correo,_celular,_date,_contraseña,__TIPO,_ID)
+        conn=mysql.connect()
+        cursor=conn.cursor()       
+        cursor.execute(sql,datos)  
+        conn.commit()
+        return redirect('/Crear.html')
+    
+@app.route("/perfil")
+def perfil():
+
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+        sql="SELECT * FROM `usuario` WHERE `ID` = %s;" 
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,session['ID'])  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Perfil.html', Usuario=empleados)
+    else:
+        return render_template('empleados/index.html')
+    
+
+
+@app.route('/Editar_perfil')
+def Editar_Perfil():
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+        sql="SELECT * FROM `usuario` WHERE `ID` = %s;" 
+        con=""
+        validarN="0"
+        validarCOR="0"
+        validarCel="0"
+        validarContra="0"
+        validarReContra="1"
+        validarD="0"
+        con=(validarN,validarCOR,validarCel,validarContra,validarD)
+        empleados=""
+        _ID=session['ID']
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,_ID)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Editar_perfil.html', Usuario=empleados, con=con)
+    else:
+        return render_template('empleados/index.html')
+
+
+
+@app.route('/Actualizar_P/<int:id>', methods=['POST'])
+def Actualizar_Perfi(id):
+
+    sql2="SELECT * FROM `usuario` WHERE `ID` = %s;" 
+    conn=mysql.connect()
+    cursor=conn.cursor()       
+    cursor.execute(sql2,id)  
+    User=cursor.fetchall()
+    conn.commit()
+    validar=0
+
+    
+    con=""
+    validarN=0
+    validarCOR=0
+    validarCel=0
+    validarContra=0
+    validarReContra=1
+    validarD=0
+
+    _ID=id
+    _nombre=request.form['Nombre']
+    _Correo=request.form['Correo']
+    _celular=request.form['celular']
+    _date=request.form['date']
+    _contraseña=request.form['contraseña']
+    _contraseña2 = User[0][5]
+
+    
+    
+
+    if _contraseña != _contraseña2:
+        validar=1
+        validarContra=1
+
+    if len(_Correo)<=5:
+        validar=1
+        validarCOR=1
+
+    if len(_celular)<=5:
+        validar=1
+        validarCel=1
+
+    if len(_nombre)<=2:
+        validar=1
+        validarN=1
+
+
+    con=(validarN,validarCOR,validarCel,validarContra,validarD,validarReContra)
+    if validar==1:
+        return redirect('/Editar_perfil')
+
+    if validar==0:
+        sql="UPDATE `usuario` SET `nombre` = %s, `Correo` = %s, `Numero` = %s, `Nacimiento` = %s WHERE `usuario`.`ID` = %s"
+        datos=(_nombre,_Correo,_celular,_date,_ID)
+        conn=mysql.connect()
+        cursor=conn.cursor()       
+        cursor.execute(sql,datos)  
+        conn.commit()
+        return redirect('/perfil')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -392,6 +732,59 @@ def a1():
 def aa1():
 
     return send_file('templates\empleados\js\main.js')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/Editar_Usuario/img/crud/filtrar.png')
+def q():
+
+    return send_file('templates/empleados/img/filtrar.png')
+
+
+@app.route('/Editar_Usuario/img/carousel1.jpg')
+def qq():
+
+    return send_file('templates\empleados\img\carousel1.jpg')
+
+
+@app.route('/Editar_Usuario/css/style.css')
+def qqq():
+
+    return send_file('templates\empleados\css\style.css')
+
+@app.route('/Editar_Usuario/lib/tempusdominus/js/moment.min.js')
+def qqqq():
+
+    return send_file('templates\empleados\css\style.min.css')
+
+@app.route('/Editar_Usuario/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')
+def qqqqq():
+
+    return send_file('templates\empleados\lib\tempusdominus\css\tempusdominus-bootstrap-4.min.css')
+
+@app.route('/Editar_Usuario/js/main.js')
+def qqqqqw():
+
+    return send_file('templates\empleados\js\main.js')
+
 
 
 if __name__=='__main__':

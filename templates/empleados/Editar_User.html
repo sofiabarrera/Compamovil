@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,23 +78,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="/home" class="nav-item nav-link active">Home</a>
-                            {% if session.name == 2 %}
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
-                            {% endif %}
-
-                        </div>
                         <header class="header">
-                            <img class="header__img" src="/img" alt=""
-                                style="width: 80px; border-radius: 100%; margin-left: 50px; margin-top: 5px;">
-                            <div class="header__menu">
-                                <div class="header__menu--profile">
-
-                                    <a class="btn btn-primary px-3 mt-1" href="/" style="margin-bottom: 12px;">Cerrar
-                                        Sesión</a>
-                                </div>
-                            </div>
                         </header>
                     </div>
                 </nav>
@@ -110,58 +93,90 @@
             </div>
             <div class="container-fluid py-5">
                 <div class="container py-5">
-                    <div>
+                    <div class="bg-appointment rounded">
                         <div class="row h-100 align-items-center justify-content-center">
                             <div class="col-lg-6 py-5">
                                 <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
-                                    <h1 class="text-center text-white mb-4">Actualizar Dispocitivo</h1>
-                                    <form method="post" action="/Actualizar_Aparato/{{aparato[0][0]}}">
-
-
-
-                                        <div class="form-group">  <!-- PROCESADOR -->
-                                            <input type="text" name="Procesador" id="Procesador" class="form-control border-0 p-4" placeholder="Procesador" required="required" value="{{aparato[0][1]}}"/>
+                                    <h1 class="text-center text-white mb-4">Actualizar usuario</h1>
+                                    <form method="post" action="/Actualizar_U/{{Usuario[0][0]}}">
+                                        <div class="form-group">  
+                                            
+                                        <!-- Nombre -->
+                                        <input value="{{Usuario[0][1]}}" type="text" name="Nombre" id="Nombre" class="form-control border-0 p-4" placeholder="Nombre y apellidos" required="required" />
                                         </div>
+                                        {% if con[0] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">El nombre es muy corto</h5>                           
+                                        {% endif %}
         
-                                        <div class="form-group"><!-- Software -->
-                                            <input type="text" name="Software" id ="Software" class="form-control border-0 p-4" placeholder="Software" required="required" value="{{aparato[0][2]}}"/>
+                                        <div class="form-group"><!-- Correo -->
+                                            <input value="{{Usuario[0][2]}}" type="email" name="Correo" id ="Correo" class="form-control border-0 p-4" placeholder="Correo electrónico" required="required" />
                                         </div>
+                                        {% if con[1] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">Este campo esta incompleto</h5>                           
+                                        {% endif %}
         
         
-                                        <div class="form-group"><!-- Conectividad -->
-                                            <input name ="Conectividad" id ="Conectividad" class="form-control border-0 p-4" type="text" placeholder="Conectividad" required="required" value="{{aparato[0][3]}}"/>
+                                        <div class="form-group"><!-- Movil -->
+                                            <input value="{{Usuario[0][3]}}" type="number" name ="celular" id ="celular" class="form-control border-0 p-4" placeholder="Número de celular" required="required" />
                                         </div>
-
+                                        {% if con[2] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">Ingrese un numero de celular correcto</h5>                           
+                                        {% endif %}
                                         
-                                        <div class="form-group"><!-- Bateria -->
-                                            
-                                                <input type="text" name="Bateria" id="Bateria"  class="form-control border-0 p-4" placeholder="Bateria" data-target="#date" data-toggle="datetimepicker" value="{{aparato[0][4]}}"/>
-                                            
+                                        <div class="form-group"><!-- Fecha -->
+                                            <div class="date" data-target-input="nearest">
+                                                        <input value="{{Usuario[0][4]}}" type="date" name="date" id="date"  class="form-control border-0 p-4 datetimepicker-input" placeholder="Fecha de Nacimiento" data-target="#date" data-toggle="datetimepicker" />
+                                                    </div>
                                         </div>
-                                        <div class="form-group"><!-- Precio -->
-                                            <input name="Precio" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio" value="{{aparato[0][5]}}"
+                                        {% if con[4] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">El numero de ceular e</h5>                           
+                                        {% endif %}
+        
+                                        <div class="form-group"><!-- Contraseña -->
+                                            <input  value="{{Usuario[0][5]}}" name="contraseña" id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Contraseña"
                                                 required="required" />
                                         </div>
                                         <div>
+                                            {% if con[3] == 1 %}
+                                                                    
+                                            <h5 class="text-white mb-2">La contraseña es muy corta</h5>
+                                        
+                                            {% endif %}
                                         </div>
         
-                                        <div class="form-group"><!-- Resolucion -->
-                                            <input name="Resolucion" id="Resolucion" class="form-control border-0 p-4" type="text " placeholder="Resolucion" value="{{aparato[0][6]}}"
+                                        <div class="form-group"><!-- Repetir contraseña -->
+                                            <input value="{{Usuario[0][5]}}" name="contraseñaRepeat" id="contraseñaRepeat" class="form-control border-0 p-4" type="password" placeholder="Vuelva a digitar su contraseña"
                                                 required="required" />
                                         </div>  
+                                        {% if con[5] == 1 %}
+                                                                    
+                                        <h5 class="text-white mb-2">Las contraseñas no coinciden</h5>
+                                    
+                                        {% endif %}
 
-                                        <div class="form-group"><!-- Uso normal -->
-                                            <input name="Uso normal" id="Uso normal" class="form-control border-0 p-4" type="text" placeholder="uso recomendado" value="{{aparato[0][7]}}"
-                                                required="required" />
-                                        </div> 
-                                        
-                                        <div class="form-group"><!-- Resumen -->
-                                            <textarea id="Resumen" class="form-control" name="Resumen" placeholder="Resumen" rows="5">{{aparato[0][8]}}</textarea>
+
+                                        <div class="form-group">
+                                          <select class="form-control" name="Tipo" id="" placeholder="TIPO" >
+                                            {% if Usuario[0][6] == 0 %}
+                                            <option selected value="0">Cliente</option>
+                                            {% else %}
+                                            <option value="0">Cliente</option>
+                                            {% endif %}
+
+
+                                            {% if Usuario[0][6] == 1 %}
+                                            <option selected value="1">Administrador</option>
+                                            {% else %}
+                                            <option value="1">Administrador</option>
+                                            {% endif %}
+                                            
+                                            
+                                          </select>
                                         </div>
-
                                                                       
                                         <div>
-                                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Actualizar</button>
+                                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Registrarse</button>
+                                        
                                         </div>
                                         
         

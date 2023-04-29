@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -76,28 +78,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="/home" class="nav-item nav-link active">Home</a>
-                            {% if session.name == 1 %}
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
-                            {% endif %}
-                            {% if session.name == 2 %}
-                            <a href="/Crear.html" class="nav-item nav-link">Gestionar Usuarios</a>
-                            <a href="/Gestion_dispositivos" class="nav-item nav-link">Gestionar dispocitivos</a>
-                            {% endif %}
-                            <a href="#" class="nav-item nav-link">Favoritos</a>
-
-                        </div>
                         <header class="header">
-                            <a href="/perfil"><img class="header__img" src="/img" alt=""
-                                style="width: 80px; border-radius: 100%; margin-left: 50px; margin-top: 5px;">
-                            </a>
-                            <div class="header__menu">
-                                <div class="header__menu--profile">
-                                    <a class="btn btn-primary px-3 mt-1" href="/" style="margin-bottom: 12px;">Cerrar
-                                        Sesión</a>
-                                </div>
-                            </div>
                         </header>
                     </div>
                 </nav>
@@ -105,83 +86,82 @@
         </div>
     </div>
     <!-- Header End -->
+    <div>
     <center>
         <div class="box">
-            <div class="container-3" style="margin-top: 30px;">
-                <span class="icon"><i class="fa fa-search"></i></span>
-                <input style="width: 500px; margin-right: 20px;" type="search" id="search" placeholder="Busdcar por correo" />
-                <img class="filter" style="width: 20px; margin-right: 20px;" src="./img/crud/filtrar.png" />
+            <div style="margin-bottom: 20px; margin-top: 20px;"class="container-3">
             </div>
-            <table class="table table-light" style="width: 1000px; ">
-                <table class="table table-light" style="width: 1000px; ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Imagen</th>
-                        <th>Modelo</th>
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for aparato in aparato %}
-                    <tr>
-                        <td><img class="filter" style="width: 80px;" src="./img/crud/Apple-movil-png.png" /></td>
-                        <td><a href="#">{{aparato[1]}}</a></td>
-                        <td><p><b>Software:</b> {{aparato[2]}}</p><p><b>Tamaño:</b> {{aparato[7]}}</p> <p><b>Bateria:</b> {{aparato[4]}}</p>  {{aparato[8]}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div>
+                        <div class="row h-100 align-items-center justify-content-center">
+                            <div class="col-lg-6 py-5">
+                                <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
+                                    <h1 class="text-center text-white mb-4">Actualizar usuario</h1>
+                                    <form method="post" action="/Actualizar_P/{{Usuario[0][0]}}">
+                                        <div class="form-group">  
+                                            
+                                        <!-- Nombre -->
+                                        <input value="{{Usuario[0][1]}}" type="text" name="Nombre" id="Nombre" class="form-control border-0 p-4" placeholder="Nombre y apellidos" required="required" />
+                                        </div>
+                                        {% if con[0] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">El nombre es muy corto</h5>                           
+                                        {% endif %}
+        
+                                        <div class="form-group"><!-- Correo -->
+                                            <input value="{{Usuario[0][2]}}" type="email" name="Correo" id ="Correo" class="form-control border-0 p-4" placeholder="Correo electrónico" required="required" />
+                                        </div>
+                                        {% if con[1] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">Este campo esta incompleto</h5>                           
+                                        {% endif %}
+        
+        
+                                        <div class="form-group"><!-- Movil -->
+                                            <input value="{{Usuario[0][3]}}" type="number" name ="celular" id ="celular" class="form-control border-0 p-4" placeholder="Número de celular" required="required" />
+                                        </div>
+                                        {% if con[2] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">Ingrese un numero de celular correcto</h5>                           
+                                        {% endif %}
+                                        
+                                        <div class="form-group"><!-- Fecha -->
+                                            <div class="date" data-target-input="nearest">
+                                                        <input value="{{Usuario[0][4]}}" type="date" name="date" id="date"  class="form-control border-0 p-4 datetimepicker-input" placeholder="Fecha de Nacimiento" data-target="#date" data-toggle="datetimepicker" />
+                                                    </div>
+                                        </div>
+                                        {% if con[4] == 1 %}                                                           
+                                        <h5 class="text-white mb-2">El numero celular es incorrecto</h5>                           
+                                        {% endif %}
+        
+                                        <div class="form-group"><!-- Contraseña -->
+                                            <input name="contraseña" id="contraseña" class="form-control border-0 p-4" type="password" placeholder="Ingrese Contraseña para continuar"
+                                                required="required" />
+                                        </div>
+        
+
+
+                                                                      
+                                        <div>
+                                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Registrarse</button>
+                                        
+                                        </div>
+                                        
+        
+        
+        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
     </center>
     </div>
 
 
 
     <!-- Footer Start -->
-    <footer>
-        <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
-            <div class="row mt-5">
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-map-marker-alt text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Our Office</h5>
-                            <p class="m-0">En la universidad</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-envelope-open text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Email Us</h5>
-                            <p class="m-0">info@example.com</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
-                        <i class="fa fa-2x fa-phone-alt text-primary"></i>
-                        <div class="ml-3">
-                            <h5 class="text-white">Call Us</h5>
-                            <p class="m-0">+012 345 6789</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pt-5">
-            </div>
-            <div class="row p-4 mt-5 mx-0" style="background: rgba(256, 256, 256, .05);">
-                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0 text-white">&copy; <a class="font-weight-bold" href="#">Compamovil</a>. All Rights
-                        Reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML
-                            Codex</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <!-- Footer End -->
 
 
@@ -201,6 +181,7 @@
 
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
