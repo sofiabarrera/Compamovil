@@ -108,7 +108,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 bg-secondary d-none d-lg-block">
-                <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                 </a>
             </div>
@@ -145,8 +145,8 @@
                     </div>
                 </div>
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
-                    <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">Justice</h1>
+                    <a href="/home" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -182,19 +182,15 @@
         <div class="box">
             <div style="margin-bottom: 20px; margin-top: 20px;"class="container-3">
                 <span class="icon"><i class="fa fa-search"></i></span>
-                <input style="width: 500px; margin-right: 20px;" type="search" id="search" placeholder="Busdcar por correo" />
+                <input style="width: 500px; margin-right: 20px;" type="search" id="search" placeholder="Busdcar por Modelo" />
                 <img class="filter" style="width: 20px; margin-right: 20px;" src="./img/crud/filtrar.png" />
                 <a class="btn btn-primary px-3 mt-1" href="/Crear_Aparato" style="margin-bottom: 12px;">Crear dispositivos</a>
             </div>
-            <table class="table table-light" style="width: 1500px; margin-bottom: 360px;">
+            <table class="table table-light" style="width: 1000px; ">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Procesador</th>
-                        <th>Software</th>
-                        <th>Conectividad</th>
-                        <th>Bateria</th>
-                        <th>Rango de precio</th>
-                        <th>Resolucion</th>
+                        <th>Modelo</th>
+                        <th>Especificaciones generales</th>
                         <th>Uso normal</th>
                         <th>resumen</th>
                         <th>acciones</th>
@@ -205,16 +201,17 @@
                     {% for dispositivos in dispositivos %}
                     <tr>
                         <td>{{dispositivos[1]}}</td>
-                        <td>{{dispositivos[2]}}</td>
-                        <td>{{dispositivos[3]}}</td>
-                        <td>{{dispositivos[4]}}</td>
-                        <td><p>{{dispositivos[5]}}</p>-<p>{{dispositivos[6]}}</p> </td>
-                        <td>{{dispositivos[7]}}</td>
+                        <td><b>Software:</b> {{dispositivos[2]}}
+                            <p><b>Conectividad:</b> {{dispositivos[3]}}</p>
+                            <p><b>Bateria:</b> {{dispositivos[4]}}</p>
+                            <p><b>Rango de precio:</b> {{dispositivos[5]}} - {{dispositivos[6]}}</p> 
+                            <p><b>Pantalla:</b> {{dispositivos[7]}}</p>
+                        </td>
                         <td>{{dispositivos[8]}}</td>
                         <td>{{dispositivos[9]}}</td>
                         <td>
-                            <a href="/Borrar/{{dispositivos[0]}}aparato">Eliminar </a> 
-                            | 
+                            <a href="/Borrar/{{dispositivos[0]}}{{1}}aparato">Eliminar </a> 
+                            |
                             <a href="/Actualizar_AP/{{dispositivos[0]}}">Editar </a>
                         </td>
                     </tr>

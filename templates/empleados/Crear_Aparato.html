@@ -108,7 +108,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 bg-secondary d-none d-lg-block">
-                <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                 </a>
             </div>
@@ -145,8 +145,8 @@
                     </div>
                 </div>
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
-                    <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">Justice</h1>
+                    <a href="/home" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -213,11 +213,23 @@
                                                 <input type="text" name="Bateria" id="Bateria"  class="form-control border-0 p-4" placeholder="Bateria" data-target="#date" data-toggle="datetimepicker" />
                                             
                                         </div>
-                                        <div class="form-group"><!-- Precio -->
-                                            <input name="Precio" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio"
-                                                required="required" />
-                                        </div>
-                                        <div>
+
+
+                                        <div class="from-group">
+                                            <table>
+                                                <tr>
+                                                   <th><div class="form-group"><!-- Precio -->
+                                                    <input name="Precio Max" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio Min"
+                                                        required="required" />
+                                                </div></th>
+
+                                                <th><h3>-</h3></th>
+                                                   <th><div class="form-group"><!-- Precio -->
+                                                    <input name="Precio Min" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio Max"
+                                                        required="required" />
+                                                </div></th>
+                                                </tr>
+                                            </table>
                                         </div>
         
                                         <div class="form-group"><!-- Resolucion -->

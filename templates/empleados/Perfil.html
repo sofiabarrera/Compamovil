@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 bg-secondary d-none d-lg-block">
-                    <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex
+                    <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex
                         align-items-center justify-content-center">
                         <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                     </a>
@@ -84,7 +84,7 @@
                     </div>
                     <nav class="navbar navbar-expand-lg bg-white navbar-light
                         p-0">
-                        <a href="/" class="navbar-brand d-block d-lg-none">
+                        <a href="/home" class="navbar-brand d-block d-lg-none">
                             <h1 class="m-0 display-4 text-primary
                                 text-uppercase">Compamovil</h1>
                         </a>
@@ -103,65 +103,96 @@
             </div>
         </div>
         <!-- Header End -->
-        <div>
-            <center>
-                <div class="box">
-                    <div style="margin-bottom: 20px; margin-top: 20px;"
-                        class="container-3">
+
+
+        <body>
+            <main>
+                <div class="container">
+                    <div class="left box-primary">
+                        <center>
+                            <img class="imag"
+                                src="/img" style="
+                                width: 300px;
+                                border-radius: 100%;
+                                margin-left: 50px;
+                                margin-top: 5px;" /></center>
+                        <h3 class="username text-center">{{Usuario[0][1]}}</h3>
                     </div>
-                    <div>
-                        <div class="container py-5">
-                            <h1>Perfil</h1>
+                    <div class="right tab-content">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2
+                                    control-label">Correo</label>
+
+                                <div class="col-sm-10">
+                                    <input disabled="true" type="email"
+                                        class="form-control"
+                                        id="inputName"
+                                        placeholder="{{Usuario[0][2]}}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-2
+                                    control-label">Numero</label>
+                                <div class="col-sm-10">
+                                    <input disabled="true" type="email"
+                                        class="form-control"
+                                        id="inputEmail"
+                                        placeholder="{{Usuario[0][3]}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-2
+                                    control-label">Fecha Nacimiento</label>
+                                <div class="col-sm-10">
+                                    <input disabled="true" type="email"
+                                        class="form-control"
+                                        id="inputEmail"
+                                        placeholder="{{Usuario[0][4]}}">
+                                </div>
+                            </div>
+
+
+
+
                             <center>
-                                <img class="header__img"
-                                    src="/img" alt=""
-                                    style=" width: 80px;
-                                    border-radius: 100%;
-                                    margin-left: 50px;
-                                    margin-top: 5px;">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a class="btn btn-primary px-3 mt-1"
+                                        href="/Editar_perfil"
+                                        style="margin-bottom: 12px;">Editar
+                                        informacion</a>
+
+                                    <a class="btn btn-primary px-3 mt-1"
+                                        href="/Editar_contra"
+                                        style="margin-bottom: 12px;">Cambiar
+                                        contraseña</a>
+
+                                    <input type="hidden" id="ID"
+                                        value="{{Usuario[0][0]}}">
+                                    <a class="btn btn-danger px-3 mt-1"
+                                        onclick="Eliminar()"
+                                        style="margin-bottom: 12px;">Dar de baja</a>
+                                </div>
+                            </div>
                             </center>
 
 
-                            <table class="table table-light" style="width: auto;
-                                font-size: 20px;">
-                                <td>
-                                    <tr>
 
-                                        <td class="table-dark"><p> Nombre</p></td>
-                                        <td class="table-bordered" style="width: 500px;"><p>{{Usuario[0][1]}}</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-dark">Correo</td>
-                                        <td class="table-bordered">{{Usuario[0][2]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-dark">Numero</td>
-                                        <td class="table-bordered">{{Usuario[0][3]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-dark">Fecha de
-                                            Nacimiento</td>
-                                        <td class="table-bordered">{{Usuario[0][4]}}</td>
-                                    </tr>
-                                </td>
-
-                            </table>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <a class="btn btn-primary px-3 mt-1" href="/Editar_perfil"
-                    style="margin-bottom: 12px;">Editar informacion</a>
-
-                    <a class="btn btn-primary px-3 mt-1" href="/Editar_contra"
-                    style="margin-bottom: 12px;">Cambiar contraseña</a>
-            </center>
-        </div>
+            </main>
+        </body>
 
 
 
-        <!-- Footer Start -->
 
-        <!-- Footer End -->
+
+
 
 
         <!-- Back to Top -->
@@ -184,6 +215,7 @@
         <script src="mail/contact.js"></script>
 
         <!-- Template Javascript -->
+        <script src="/scrips"></script>
         <script src="js/main.js"></script>
     </body>
 

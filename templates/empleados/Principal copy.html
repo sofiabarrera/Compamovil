@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Compamovil</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap"
+            rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+            rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Header Start -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 bg-secondary d-none d-lg-block">
+                    <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex
+                        align-items-center justify-content-center">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
+                    </a>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row bg-white border-bottom d-none d-lg-flex">
+                        <div class="col-lg-7 text-left">
+                            <div class="h-100 d-inline-flex align-items-center
+                                py-2 px-3">
+                                <i class="fa fa-envelope text-primary mr-2"></i>
+                                <small>info@example.com</small>
+                            </div>
+                            <div class="h-100 d-inline-flex align-items-center
+                                py-2 px-2">
+                                <i class="fa fa-phone-alt text-primary mr-2"></i>
+                                <small>+012 345 6789</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 text-right">
+                            <div class="d-inline-flex align-items-center p-2">
+                                <a class="btn btn-sm btn-outline-primary
+                                    btn-sm-square mr-2" href="">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary
+                                    btn-sm-square mr-2" href="">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary
+                                    btn-sm-square mr-2" href="">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary
+                                    btn-sm-square mr-2" href="">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a class="btn btn-sm btn-outline-primary
+                                    btn-sm-square mr-2" href="">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-expand-lg bg-white navbar-light
+                        p-0">
+                        <a href="/home" class="navbar-brand d-block d-lg-none">
+                            <h1 class="m-0 display-4 text-primary
+                                text-uppercase">Compamovil</h1>
+                        </a>
+                        <button type="button" class="navbar-toggler"
+                            data-toggle="collapse"
+                            data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse
+                            justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav mr-auto py-0">
+                                <a href="/home" class="nav-item nav-link
+                                    active">Home</a>
+                                {% if session.name == 1 %}
+                                <a href="/Gestion_dispositivos" class="nav-item
+                                    nav-link">Gestionar dispocitivos</a>
+                                {% endif %}
+                                {% if session.name == 2 %}
+                                <a href="/Crear.html" class="nav-item nav-link">Gestionar
+                                    Usuarios</a>
+                                <a href="/Gestion_dispositivos" class="nav-item
+                                    nav-link">Gestionar dispocitivos</a>
+                                {% endif %}
+                                <a href="#" class="nav-item nav-link">Favoritos</a>
+                            </div>
+                            <header class="header">
+                                <a href="/perfil"><img class="header__img"
+                                        src="/img" alt=""
+                                        style="width: 80px; border-radius: 100%;
+                                        margin-left: 50px; margin-top: 5px;">
+                                </a>
+                                <div class="header__menu">
+                                    <div class="header__menu--profile">
+                                        <a class="btn btn-primary px-3 mt-1"
+                                            href="/" style="margin-bottom:
+                                            12px;">Cerrar
+                                            Sesión</a>
+                                    </div>
+                                </div>
+                            </header>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+        <center>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><div class="box">
+                                <div class="container-3" style="margin-top:
+                                    30px;">
+                                    <form  method="post" action="/Buscar2/{{selecion[0][0]}}">
+                                        <span class="icon"><i class="fa fa-search"></i></span>
+                                        <input style="width: 500px; margin-right: 20px;"
+                                            type="search" id="search" name="Busca" placeholder="Buscar por Modelo" />
+                                        <img class="filter" style="width: 20px; margin-right:
+                                            20px;" src="./img/crud/filtrar.png" />
+                
+                                    </form>
+                                </div style="vertical-align: top;">
+                                <table class="table table-light" style="vertical-align: top; width: 600px; margin-top: 60px; ">
+                                    <thead class="thead-dark" style="vertical-align: top;">
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Modelo</th>
+                                            <th>Descripcion</th>
+                                            <th>Valoracion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for aparato in aparato %}
+                                        <tr >
+                                            <td><img class="filter"
+                                                    style="width: 80px;"
+                                                    src="./img/crud/Apple-movil-png.png"
+                                                    /></td>
+                                            <td><a href="/comparar2/{{aparato[0]}}:{{selecion[0][0]}}">{{aparato[1]}}</a></td>
+                                            <td><p><b>Software:</b>
+                                                    {{aparato[2]}}</p><p>{{aparato[8]}}
+                                                    <p>{{aparato[9]}}</p></td>
+                                                <td>{{aparato[11]}}/5</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div></th>
+
+                            <th style="vertical-align: top;"> <table class="table table-light" style="width:
+                                    600px; margin-top: 60px; ">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th> Modelo 1 : </th>
+                                            <th>{{selecion[0][1]}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><center><img class="filter"
+                                                        style="width: 80px;"
+                                                        src="./img/crud/Apple-movil-png.png"
+                                                        /></center> </td>                      
+                                    </tr>
+                                    <tr>
+                                        <Td>Software: </Td>  
+                                        <td>{{selecion[0][2]}}</td>                       
+                                    </tr>
+                                    <tr>
+                                        <td>Conectividad: </td>
+                                        <td>{{selecion[0][3]}}</td>
+                                    </tr>
+                                    <tr>  
+                                        <td>Bateria: </td>
+                                        <td>
+                                            {{selecion[0][4]}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rango de precio: </td>
+                                        <td>{{selecion[0][5]}} - {{selecion[0][6]}}</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td>Tamaño: </td>
+                                        <td>{{selecion[0][7]}}</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td>Mejor Uso: </td>
+                                        <td>{{selecion[0][8]}}</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td>Valoracion: </td>
+                                        <td>{{selecion[0][11]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table></th>
+                    </tr>
+                </thead>
+            </table>
+        </center>
+
+
+
+
+        <!-- Footer Start -->
+        <footer>
+            <div class="container-fluid bg-secondary text-white pt-5 px-sm-3
+                px-md-5" style="margin-top: 90px;">
+                <div class="row mt-5">
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-map-marker-alt text-primary"></i>
+                            <div class="ml-3">
+                                <h5 class="text-white">Our Office</h5>
+                                <p class="m-0">En la universidad</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-envelope-open text-primary"></i>
+                            <div class="ml-3">
+                                <h5 class="text-white">Email Us</h5>
+                                <p class="m-0">info@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-phone-alt text-primary"></i>
+                            <div class="ml-3">
+                                <h5 class="text-white">Call Us</h5>
+                                <p class="m-0">+012 345 6789</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                </div>
+                <div class="row p-4 mt-5 mx-0" style="background: rgba(256, 256,
+                    256, .05);">
+                    <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                        <p class="m-0 text-white">&copy; <a
+                                class="font-weight-bold" href="#">Compamovil</a>.
+                            All Rights
+                            Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-right">
+                        <p class="m-0 text-white">Designed by <a
+                                class="font-weight-bold"
+                                href="https://htmlcodex.com">HTML
+                                Codex</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa
+                fa-angle-double-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+
+</html>
