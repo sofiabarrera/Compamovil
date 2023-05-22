@@ -1,75 +1,3 @@
-<!--
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Inicio</title>
-</head>
-<body>
-    <H1>ESTO SOLO ES UNA PAGINA DE PRUEVA NO TOMAR EN CUENTA</H1>
-    <h2>BIENVENIDO SEÑOR@ USUARIO {{ session.name }}</h2>
-<form method="post" action="/store" enctype="multipart/form-data">
-    <center>
-    Nombre:
-    <input type="text" name="Nombre" id="Nombre">
-    <br>
-    ID
-    <input type="text" name="ID" id="ID">
-    <br>
-    Correo
-    <input type="text" name="Foto" id="Foto">
-    <br>
-    Numero
-    <input type="text" name="Foto" id="Foto">
-    <br>
-    Fecha
-    <input type="text" name="Foto" id="Foto">
-    <br>
-    Contraseña
-    <input type="text" name="Foto" id="Foto">
-    <br>
-
-
-    <input type="submit" value="Agregar">
-
-    <table class="table table-light">
-        <thead class="thead-light">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>numero</th>
-                <th>Fecha Nacimiento</th>
-                <th></th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            {% for empleados in empleados %}
-            <tr>
-                <td>{{empleados[0]}}</td>
-                <td>{{empleados[1]}}</td>
-                <td>{{empleados[2]}}</td>
-                <td>{{empleados[3]}}</td>
-                <td>{{empleados[4]}}</td>
-                <td>Eliminar | Editar</td>
-            </tr>
-            {% endfor %}
-            
-        </tbody>
-    </table>
-    </center>
-
-</form>
-</body>
-</html>
-
-
--->
-
 
 
 
@@ -79,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title>Compamovil</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="width=550px, initial-scale=0.5" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
