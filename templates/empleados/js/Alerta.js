@@ -15,7 +15,7 @@ function Eliminar()
     ID=document.getElementById("ID").value;
     var opcion = confirm("¿Seguro que desea dar de baja?");
     if (opcion == true) {
-        window.location = "/Borrar/"+ID+"1usuario";
+        window.location = "/Borrar/"+ID+"";
 	} 
 
     document.getElementById("ejemplo").innerHTML = ID;
@@ -56,6 +56,33 @@ contraNEW2 = document.getElementById("contraseñaNEW2").value
     {
         window.location = ("/ActuContra")
     }
+}
     
+
+
+function Fav(a){
+    dato = a
+    alert(a)
+
+    
+    fetch('/Metodo', {method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ dato: dato })
+})
+
+
+    .then(response => response.text())
+    .then(data => {
+
+        
+        alert(data)
+        console.log(data);
+    })
+    .catch(error => {
+        // Maneja el error aquí
+        console.error('Error:', error);
+    });
 
 }
