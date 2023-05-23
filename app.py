@@ -352,27 +352,19 @@ def gestionar():
 
 
 
-@app.route('/Borrar/<int:id><int:perfil><string:Tabla>')
-def borrar(id,perfil,Tabla):
+@app.route('/Borrar/<int:id>')
+def borrar(id):
     if session['name'] == 2 or session['name'] == 1:
 
+        print(id)
 
-        sql="DELETE FROM "+Tabla+" WHERE id=%s;"    
+        sql="DELETE FROM `usuario` WHERE id=%s;"    
         conn=mysql.connect()
         cursor=conn.cursor()
         cursor.execute(sql,id)  
         conn.commit()
 
-
-        if Tabla == "aparato":
-            
-            return redirect("/Gestion_dispositivos")
-        if Tabla == "usuario":
-            if perfil == 1:
-                
-                return redirect("/Crear.html")
-            else:
-                return redirect("/")
+        return redirect("/")
     else:
         return render_template('empleados/index.html')
 
@@ -802,6 +794,53 @@ def Buscar2(id):
         return render_template('empleados/Principal copy.html', aparato=aparato, selecion=seleccion)
     else:
         return redirect('/')
+
+
+
+
+@app.route("/Fav")
+def Favoritos():
+
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+        sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato JOIN favoritos ON aparato.ID = favoritos.APARATO_ID WHERE USER_ID = %s GROUP BY `aparato`.`ID`;"
+        UID = session['ID']
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,UID)  
+        empleados=cursor.fetchall()
+        conn.commit()
+        return render_template('empleados/Favoritos.html', aparato=empleados)
+    else:
+        return render_template('empleados/index.html')
+    
+
+@app.route('/Metodo', methods=['POST'])
+def method():
+    sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato JOIN favoritos ON aparato.ID = favoritos.APARATO_ID WHERE favoritos.APARATO_ID = %s AND USER_ID = %s GROUP BY `aparato`.`ID`;"
+    UID = session['ID']
+    dato = request.json.get('dato')
+    datos=(dato,UID)
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql,datos)  
+    empleados=cursor.fetchall()
+    conn.commit()
+    print(dato)
+    print(empleados)
+
+    if empleados:
+        sql2=""
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,datos)
+        return ("Se ah agregado a favoritos!")
+    else:
+        return ("El dispositivo ya esta en la lista!")
+
+
+
+    
+
 
 
 
