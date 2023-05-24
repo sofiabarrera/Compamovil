@@ -35,7 +35,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 bg-secondary d-none d-lg-block">
-                    <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex
+                    <a href="/home"
+                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex
                         align-items-center justify-content-center">
                         <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                     </a>
@@ -57,23 +58,23 @@
                         <div class="col-lg-5 text-right">
                             <div class="d-inline-flex align-items-center p-2">
                                 <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
+                                    btn-sm-square mr-2" href>
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
+                                    btn-sm-square mr-2" href>
                                     <i class="fab fa-twitter"></i>
                                 </a>
                                 <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
+                                    btn-sm-square mr-2" href>
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
+                                    btn-sm-square mr-2" href>
                                     <i class="fab fa-instagram"></i>
                                 </a>
                                 <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
+                                    btn-sm-square mr-2" href>
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </div>
@@ -92,7 +93,8 @@
                         </button>
                         <div class="collapse navbar-collapse
                             justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0" style="width:max-content">
+                            <div class="navbar-nav mr-auto py-0"
+                                style="width:max-content">
                                 <a href="/home" class="nav-item nav-link
                                     active">Home</a>
                                 {% if session.name == 1 %}
@@ -105,11 +107,10 @@
                                 <a href="/Gestion_dispositivos" class="nav-item
                                     nav-link">Gestionar dispocitivos</a>
                                 {% endif %}
-                                <a href="#" class="nav-item nav-link">Favoritos</a>
                             </div>
                             <header class="header">
                                 <a href="/perfil"><img class="header__img"
-                                        src="/img" alt=""
+                                        src="/img" alt
                                         style="width: 80px; border-radius: 100%;
                                         margin-left: 50px; margin-top: 5px;">
                                 </a>
@@ -130,138 +131,147 @@
         <!-- Header End -->
 
         <center>
-            <div class="container-3" style="margin-top: 30px; width: min-content;">
-                                    
-                <form  method="post" action="/Buscar">
+            <div class="container-3"
+                style="margin-top: 30px; width: min-content;">
+
+                <form method="post" action="/Buscar">
                     <span class="icon"><i class="fa fa-search"></i></span>
                     <input style="width: 500px; "
-                        type="search" id="search" name="Busca" placeholder="Buscar por Modelo" />
+                        type="search" id="search" name="Busca"
+                        placeholder="Buscar por Modelo" />
                     <img class="filter" style="width: 20px; margin-right:
                         20px;" src="./img/crud/filtrar.png" />
 
                 </form>
             </div>
         </div>
-                <div class="table-responsive">
-                                                <div class="box">
-                                
-                    <table class="table table-light" style="width: 100%;">
-                
-                                <table class="table table-light" style="width: 600px;
-                                    margin-top: 60px; ">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Imagen</th>
-                                            <th>Modelo</th>
-                                            <th>Descripcion</th>
-                                            <th>Valoracion</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for aparato in aparato %}
-                                        <tr>
-                                            <td><img class="filter" style="width: 80px;"
-                                                    src="./img/crud/Apple-movil-png.png" /></td>
-                                            <td><a href="/comparar/{{aparato[0]}}">{{aparato[1]}}</a></td>
-                                            <td><p><b>Software:</b> {{aparato[2]}}</p><p>{{aparato[8]}}
-                                                    <p>{{aparato[9]}}</p></td>
-                
-                
-                
-                                                <TD>{{aparato[11]}}/5</TD>
-                                                <td><a href="/FavQ/{{aparato[0]}}" class="nav-item nav-link">Quitar</a></td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                
+
+        {% if aparato%}
+        <div class="table-responsive">
+            <div class="box">
+
+                <table class="table table-light" style="width: 100%;">
+
+                    <table class="table table-light" style="width: 600px;
+margin-top: 60px; ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Modelo</th>
+                                <th>Descripcion</th>
+                                <th>Valoracion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for aparato in aparato %}
+                            <tr>
+                                <td><img class="filter" style="width: 80px;"
+                                        src="./img/crud/Apple-movil-png.png" /></td>
+                                <td><a href="/comparar/{{aparato[0]}}">{{aparato[1]}}</a></td>
+                                <td><p><b>Software:</b> {{aparato[2]}}</p><p>{{aparato[8]}}
+                                        <p>{{aparato[9]}}</p></td>
+
+                                    <td>{{aparato[11]}}/5</td>
+                                    <td><a href="/FavQ/{{aparato[0]}}"
+                                            class="nav-item nav-link">Quitar</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
                     </table>
                 </div>
-            </center>
-                
-            <!-- Footer Start -->
-            <footer>
-                <div class="container-fluid bg-secondary text-white pt-5 px-sm-3
-                    px-md-5" style="margin-top:auto;">
-                    <div class="row mt-5">
-                        <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
-                                style="background: rgba(256, 256, 256, .05);">
-                                <i class="fa fa-2x fa-map-marker-alt
+            </div>
+
+            {% else %}
+            <div style="margin-top: 100px;">
+                <h1>NO SE ENCONTRARON DISPOCITIVOS</h1>
+            </div>
+            
+            {% endif %}
+
+        </center>
+
+        <!-- Footer Start -->
+        <footer>
+            <div class="container-fluid bg-secondary text-white pt-5 px-sm-3
+                    px-md-5" style="margin-top:150px;">
+                <div class="row mt-5">
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-map-marker-alt
                                     text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="text-white">Our Office</h5>
-                                    <p class="m-0">En la universidad</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
-                                style="background: rgba(256, 256, 256, .05);">
-                                <i class="fa fa-2x fa-envelope-open
-                                    text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="text-white">Email Us</h5>
-                                    <p class="m-0">info@example.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
-                                style="background: rgba(256, 256, 256, .05);">
-                                <i class="fa fa-2x fa-phone-alt text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="text-white">Call Us</h5>
-                                    <p class="m-0">+012 345 6789</p>
-                                </div>
+                            <div class="ml-3">
+                                <h5 class="text-white">Our Office</h5>
+                                <p class="m-0">En la universidad</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row pt-5">
-                    </div>
-                    <div class="row p-4 mt-5 mx-0" style="background: rgba(256,
-                        256, 256, .05);">
-                        <div class="col-md-6 text-center text-md-left mb-3
-                            mb-md-0">
-                            <p class="m-0 text-white">&copy; <a
-                                    class="font-weight-bold" href="#">Compamovil</a>.
-                                All Rights
-                                Reserved.</p>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-envelope-open
+                                    text-primary"></i>
+                            <div class="ml-3">
+                                <h5 class="text-white">Email Us</h5>
+                                <p class="m-0">info@example.com</p>
+                            </div>
                         </div>
-                        <div class="col-md-6 text-center text-md-right">
-                            <p class="m-0 text-white">Designed by <a
-                                    class="font-weight-bold"
-                                    href="https://htmlcodex.com">HTML
-                                    Codex</a></p>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-lg-center p-4"
+                            style="background: rgba(256, 256, 256, .05);">
+                            <i class="fa fa-2x fa-phone-alt text-primary"></i>
+                            <div class="ml-3">
+                                <h5 class="text-white">Call Us</h5>
+                                <p class="m-0">+012 345 6789</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!-- Footer End -->
+                <div class="row pt-5">
+                </div>
+                <div class="row p-4 mt-5 mx-0" style="background: rgba(256,
+                        256, 256, .05);">
+                    <div class="col-md-6 text-center text-md-left mb-3
+                            mb-md-0">
+                        <p class="m-0 text-white">&copy; <a
+                                class="font-weight-bold" href="#">Compamovil</a>.
+                            All Rights
+                            Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-right">
+                        <p class="m-0 text-white">Designed by <a
+                                class="font-weight-bold"
+                                href="https://htmlcodex.com">HTML
+                                Codex</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer End -->
 
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa
                     fa-angle-double-up"></i></a>
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <!-- Contact Javascript File -->
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script
-                src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="lib/tempusdominus/js/moment.min.js"></script>
-            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-            <!-- Contact Javascript File -->
-            <script src="mail/jqBootstrapValidation.min.js"></script>
+        <!-- Template Javascript -->
 
-            <!-- Template Javascript -->
-            
-            <script src="js/main.js"></script>
-        </body>
+        <script src="js/main.js"></script>
+    </body>
 
-    </html>
+</html>

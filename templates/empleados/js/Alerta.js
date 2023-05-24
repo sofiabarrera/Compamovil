@@ -62,8 +62,6 @@ contraNEW2 = document.getElementById("contraseñaNEW2").value
 
 function Fav(a){
     dato = a
-    alert(a)
-
     
     fetch('/Metodo', {method: 'POST',
     headers: {
@@ -76,7 +74,7 @@ function Fav(a){
     .then(response => response.text())
     .then(data => {
 
-        
+
         alert(data)
         console.log(data);
     })

@@ -354,7 +354,7 @@ def gestionar():
 
 @app.route('/Borrar/<int:id>')
 def borrar(id):
-    if session['name'] == 2 or session['name'] == 1:
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
 
         print(id)
 
@@ -366,7 +366,7 @@ def borrar(id):
 
         return redirect("/")
     else:
-        return render_template('empleados/index.html')
+        return redirect("/")
 
 
 
@@ -828,14 +828,33 @@ def method():
     print(dato)
     print(empleados)
 
-    if empleados:
-        sql2=""
+    if not empleados:
+        sql2="INSERT INTO `favoritos` (`APARATO_ID`, `USER_ID`) VALUES (%s, %s)"
         conn=mysql.connect()
         cursor=conn.cursor()
-        cursor.execute(sql,datos)
+        cursor.execute(sql2,datos)
+        conn.commit()
         return ("Se ah agregado a favoritos!")
     else:
         return ("El dispositivo ya esta en la lista!")
+    
+
+@app.route('/FavQ/<int:id>')
+def BorrarFav(id):
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+
+        print(id)
+        UID = session['ID']
+        datos=(id,UID)    
+        sql="DELETE FROM favoritos WHERE favoritos.APARATO_ID = %s AND USER_ID = %s"    
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,datos)  
+        conn.commit()
+
+        return redirect("/Fav")
+    else:
+        return redirect('/')
 
 
 
@@ -1145,6 +1164,11 @@ def daa():
 def egg():
 
     return send_file('templates/empleados/img/Apple-movil-png.png')
+
+
+@app.route('/Fave')
+def img():
+    return send_file('templates/empleados/img/Estrella_amarilla.png')
 
 
 
