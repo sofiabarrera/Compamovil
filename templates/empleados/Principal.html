@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Compamovil</title>
-        <meta content="width=550px, initial-scale=0.5" name="viewport">
+        <meta content="width=580px, initial-scale=0.5" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
 
@@ -28,6 +28,12 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <style>
+            #login-form {
+              display: none;
+            }
+          </style>
+
     </head>
 
     <body>
@@ -35,50 +41,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 bg-secondary d-none d-lg-block">
-                    <a href="/home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex
+                    <a href="/home"
+                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex
                         align-items-center justify-content-center">
                         <h1 class="m-0 display-4 text-primary text-uppercase">Compamovil</h1>
                     </a>
                 </div>
                 <div class="col-lg-8">
-                    <div class="row bg-white border-bottom d-none d-lg-flex">
-                        <div class="col-lg-7 text-left">
-                            <div class="h-100 d-inline-flex align-items-center
-                                py-2 px-3">
-                                <i class="fa fa-envelope text-primary mr-2"></i>
-                                <small>info@example.com</small>
-                            </div>
-                            <div class="h-100 d-inline-flex align-items-center
-                                py-2 px-2">
-                                <i class="fa fa-phone-alt text-primary mr-2"></i>
-                                <small>+012 345 6789</small>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 text-right">
-                            <div class="d-inline-flex align-items-center p-2">
-                                <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a class="btn btn-sm btn-outline-primary
-                                    btn-sm-square mr-2" href="">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                     <nav class="navbar navbar-expand-lg bg-white navbar-light
                         p-0">
                         <a href="/home" class="navbar-brand d-block d-lg-none">
@@ -92,7 +61,8 @@
                         </button>
                         <div class="collapse navbar-collapse
                             justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0" style="width:max-content">
+                            <div class="navbar-nav mr-auto py-0"
+                                style="width:max-content">
                                 <a href="/home" class="nav-item nav-link
                                     active">Home</a>
                                 {% if session.name == 1 %}
@@ -108,11 +78,16 @@
                                 <a href="/Fav" class="nav-item nav-link">Favoritos</a>
                             </div>
                             <header class="header">
+
+
+
                                 <a href="/perfil"><img class="header__img"
-                                        src="/img" alt=""
+                                        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c8b4e64d-377b-4606-bea7-1b65493e0f9a/dfkajf1-cb4eefb2-9282-4f01-ae16-168efb98b874.png/v1/crop/w_294,h_350,x_0,y_0,scl_0.79514824797844/dorimon_by_homeosttasis_dfkajf1-350t.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NDQxIiwicGF0aCI6IlwvZlwvYzhiNGU2NGQtMzc3Yi00NjA2LWJlYTctMWI2NTQ5M2UwZjlhXC9kZmthamYxLWNiNGVlZmIyLTkyODItNGYwMS1hZTE2LTE2OGVmYjk4Yjg3NC5wbmciLCJ3aWR0aCI6Ijw9MzcxIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.t_BnFQRScKlFaSDfZAA8ZpwYqMKIrsm0gwhF_QxpmBs" alt
                                         style="width: 80px; border-radius: 100%;
                                         margin-left: 50px; margin-top: 5px;">
-                                </a>
+                               
+                            
+                            </a>
                                 <div class="header__menu">
                                     <div class="header__menu--profile">
                                         <a class="btn btn-primary px-3 mt-1"
@@ -130,71 +105,187 @@
         <!-- Header End -->
 
         <center>
-            <div class="container-3" style="margin-top: 30px; width: min-content;">
-                                    
-                <form  method="post" action="/Buscar">
+            <div class="container-3"
+                style="margin-top: 30px; width: min-content;">
+
+                <form method="post" action="/Buscar">
                     <span class="icon"><i class="fa fa-search"></i></span>
                     <input style="width: 500px; "
-                        type="search" id="search" name="Busca" placeholder="Buscar por Modelo" />
-                    <img class="filter" style="width: 20px; margin-right:
-                        20px;" src="./img/crud/filtrar.png" />
-
+                        type="search" id="search" name="Busca"
+                        placeholder="Buscar por Modelo" />
                 </form>
+                <button class="btn" margin-top="50px"
+                    onclick="Filtros()"><img
+                        style="width: 20px; margin-right:
+                            20px;" src="./img/crud/filtrar.png" /></button>
             </div>
         </div>
-                <div class="table-responsive">
-                                                <div class="box">
-                                
-                    <table class="table table-light" style="width: 100%;">
-                
-                                <table class="table table-light" style="width: 600px;
-                                    margin-top: 60px; ">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Imagen</th>
-                                            <th>Modelo</th>
-                                            <th>Descripcion</th>
-                                            <th>Valoracion</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for aparato in aparato %}
-                                        <tr>
-                                            <td><img class="filter" style="width: 80px;"
-                                                    src="./img/crud/Apple-movil-png.png" /></td>
 
+        <div id="loginForm" class="box" style="display: none;">
+            <div class="rounded p-1 my-1 b-2"
+                style="width: 790px; background: rgba(178, 178, 184, 0.534);">
 
-                                            <td><a href="/comparar/{{aparato[0]}}">{{aparato[1]}}</a></td>
-                                            <td><p><b>Software:</b> {{aparato[2]}}</p><p>{{aparato[8]}}
-                                                    <p>{{aparato[9]}}</p></td>
-                                                    
-                
-                
-                                                
-                                                <TD>{{aparato[11]}}/5 </TD>
-                                                <td><BUtton class="btn" margin-top="50px" onclick="Fav({{aparato[0]}})"><img src="/Fave" alt="Añadir a Favoritos" width="30px" height="30px"></BUtton></td>
-                                                <script>
+                <div class="form-group">
+                    <form action="/Filtro" method="post">
+                        <table>
+                            <tr>
+                                <th>
+                                    <h5 style="height: auto; width: auto;">Bateria</h5>
+                                    <select id="Bateria" name="Bateria"
+                                        class="form-control"
+                                        style="height: auto; width: auto;">
+                                        <option value="null">Seleccionar</option>
+                                        {% for Bateria in Bateria %}
+                                        <option value="{{Bateria[0]}}">{{Bateria[0]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <h5
+                                        style="height: auto; width: auto;margin-left: 20px">Tamaño</h5>
+                                    <select id="Tamaño" name="Tamaño"
+                                        class="form-control"
+                                        style="  height: auto; width: auto;margin-left: 20px">
+                                        <option value="null">Seleccionar</option>
+                                        {% for Tamaño in Tamaño %}
+                                        <option
+                                            value="{{Tamaño[0]}}">{{Tamaño[0]}}</option>
+                                        {% endfor %}
+                                    </select></th>
+                                <th>
+                                    <h5
+                                        style="height: auto; width: auto;margin-left: 20px">Uso</h5>
+                                    <select id="Uso" name="Uso"
+                                        class="form-control"
+                                        style="  height: auto; width: auto; margin-left: 20px;">
+                                        <option value="null">Seleccionar</option>
+                                        {% for Uso in Uso %}
+                                        <option
+                                            value="{{Uso[0]}}">{{Uso[0]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <h5
+                                        style="height: auto; width: auto;margin-left: 20px">Conectividad</h5>
+                                    <select id="Conectividad"
+                                        name="Conectividad" class="form-control"
+                                        style="height: auto; width: auto;margin-left: 20px">
+                                        <option value="null">Seleccionar</option>
+                                        {% for Conectividad in Conectividad %}
+                                        <option
+                                            value="{{Conectividad[0]}}">{{Conectividad[0]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                            </table>
 
+                            <h5 style="margin-top: 25px;">Rango de Precios</h5>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <div class="form-group"
+                                            style="height: auto; width: 100px;"><!-- Precio -->
 
-
-                                                </script>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                
-                    </table>
+                                            <input name="Precio Max"
+                                                id="Precio"
+                                                class="form-control border-0 p-1"
+                                                type="text"
+                                                placeholder="Precio Min" />
+                                        </div></th>
+                                    <th><h3>-</h3></th>
+                                    <th><div class="form-group"
+                                            style="height: auto; width: 100px;"><!-- Precio -->
+                                            <input name="Precio Min"
+                                                id="Precio"
+                                                class="form-control border-0 p-1"
+                                                type="text"
+                                                placeholder="Precio Max" />
+                                        </div></th>
+                                </tr>
+                            </table>
+                            <button
+                                style="width: 300px;" class="btn btn-primary btn-block border-0 py-3"
+                                type="submit">Filtrar</button>
+                        </form>
+                    </div>
                 </div>
+            </div>
+
+
+
+            
+
+            {% if aparato %}
+
+            <div class="table-responsive">
+                <div class="box">
+
+                    <table class="table table-light">
+
+                        <table class="table table-light" style="width: 800px;
+                         ">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Modelo</th>
+                                    <th>Descripcion</th>
+                                    <th>Valoracion</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for aparato in aparato %}
+                                <tr>
+                                    <td><img class="filter" style="width: 80px;"
+                                            src="./img/crud/Apple-movil-png.png" /></td>
+
+                                    <td><a href="/comparar/{{aparato[0]}}">{{aparato[1]}}</a></td>
+                                    <td ><p><b>Software:</b> {{aparato[2]}}</p><p>{{aparato[8]}}
+                                            <p style="width: 500px;">{{aparato[9]}}</p></td>
+
+                                        <td>{{aparato[11]}}/5 </td>}
+
+
+
+
+                                        <td><button class="btn"
+                                                margin-top="50px"
+                                                onclick="Fav({{aparato[0]}})"><img
+                                                    src="/Fave"
+                                                    alt="Añadir a Favoritos"
+                                                    width="30px" height="30px"></button></td>
+
+
+                                                    
+                                        <script>
+
+
+
+                                    </script>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                <h1>NO SE ENCONTRARON DISPOCITIVOS</h1>
+                {% endif %}
+
             </center>
-                
+
             <!-- Footer Start -->
             <footer>
-                <div class="container-fluid bg-secondary text-white pt-5 px-sm-3
+                <div
+                    class="container-fluid bg-secondary text-white pt-5 px-sm-3
                     px-md-5" style="margin-top: 90px; ">
                     <div class="row mt-5">
                         <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
+                            <div
+                                class="d-flex justify-content-lg-center p-4"
                                 style="background: rgba(256, 256, 256, .05);">
                                 <i class="fa fa-2x fa-map-marker-alt
                                     text-primary"></i>
@@ -205,7 +296,8 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
+                            <div
+                                class="d-flex justify-content-lg-center p-4"
                                 style="background: rgba(256, 256, 256, .05);">
                                 <i class="fa fa-2x fa-envelope-open
                                     text-primary"></i>
@@ -216,9 +308,11 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="d-flex justify-content-lg-center p-4"
+                            <div
+                                class="d-flex justify-content-lg-center p-4"
                                 style="background: rgba(256, 256, 256, .05);">
-                                <i class="fa fa-2x fa-phone-alt text-primary"></i>
+                                <i
+                                    class="fa fa-2x fa-phone-alt text-primary"></i>
                                 <div class="ml-3">
                                     <h5 class="text-white">Call Us</h5>
                                     <p class="m-0">+012 345 6789</p>
@@ -228,7 +322,8 @@
                     </div>
                     <div class="row pt-5">
                     </div>
-                    <div class="row p-4 mt-5 mx-0" style="background: rgba(256,
+                    <div class="row p-4 mt-5 mx-0"
+                        style="background: rgba(256,
                         256, 256, .05);">
                         <div class="col-md-6 text-center text-md-left mb-3
                             mb-md-0">
@@ -248,11 +343,10 @@
             </footer>
             <!-- Footer End -->
 
-
             <!-- Back to Top -->
-            <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa
+            <a href="#" class="btn btn-primary px-3 back-to-top"><i
+                    class="fa
                     fa-angle-double-up"></i></a>
-
 
             <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -263,12 +357,13 @@
             <script src="lib/owlcarousel/owl.carousel.min.js"></script>
             <script src="lib/tempusdominus/js/moment.min.js"></script>
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <script
+                src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <!-- Contact Javascript File -->
             <script src="mail/jqBootstrapValidation.min.js"></script>
 
             <!-- Template Javascript -->
-            
+
             <script src="js/main.js"></script>
             <script src="/scrips"></script>
         </body>
