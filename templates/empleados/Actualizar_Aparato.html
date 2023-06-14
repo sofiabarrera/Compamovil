@@ -138,11 +138,24 @@
                                                 <input type="text" name="Bateria" id="Bateria"  class="form-control border-0 p-4" placeholder="Bateria" data-target="#date" data-toggle="datetimepicker" value="{{aparato[0][4]}}"/>
                                             
                                         </div>
+
+
+
                                         <div class="form-group"><!-- Precio -->
-                                            <input name="Precio" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio" value="{{aparato[0][5]}}"
-                                                required="required" />
-                                                <input name="Precio" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio" value="{{aparato[0][6]}}"
-                                                required="required" />
+                                                <table>
+                                                    <tr>
+                                                       <th><div class="form-group"><!-- Precio -->
+                                                        <input name="Precio Min" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio Min"
+                                                        value="{{aparato[0][5]}}" required="required" />
+                                                    </div></th>
+    
+                                                    <th><h3>-</h3></th>
+                                                       <th><div class="form-group"><!-- Precio -->
+                                                        <input name="Precio Max" id="Precio" class="form-control border-0 p-4" type="text" placeholder="Precio Max"
+                                                        value="{{aparato[0][6]}}" required="required" />
+                                                    </div></th>
+                                                    </tr>
+                                                </table>
                                         </div>
                                         <div>
                                         </div>

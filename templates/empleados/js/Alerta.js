@@ -84,3 +84,9 @@ function Fav(a){
     });
 
 }
+
+function Filtros () {
+    var loginForm = document.getElementById("loginForm");
+      loginForm.style.display = "block";
+    
+}

@@ -1,10 +1,18 @@
+
 from flask import Flask
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session, session, abort, send_from_directory, send_file, flash
 from flask_session import Session
 from flaskext.mysql import MySQL
-from flask import send_from_directory
-from flask import send_file
-from flask import flash
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from google_auth_oauthlib.flow import Flow
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
+import os
+import pathlib
+import requests
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
 app=Flask(__name__)
@@ -20,6 +28,177 @@ app.config['MYSQL_DATABASE_PASSWORD']='1234'
 app.config['MYSQL_DATABASE_DB']='usuario'
 mysql.init_app(app)
 
+app.secret_key = "CodeSpecialist.com"
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+GOOGLE_CLIENT_ID = "60579329655-odmej9ieav8j30foq983o0hg7osav7mj.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/callback"
+)
+
+
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+
+    return wrapper
+
+
+@app.route("/login2")
+def login2():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.Session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID, 
+        clock_skew_in_seconds=10
+    )
+
+    session["google_id"] = id_info.get("sub")
+    session["namen"] = id_info.get("name")
+    session["email"] = id_info['email']
+    session["phone_number"] = id_info.get('phone_number')
+    session["birthdate"] = id_info.get('birthdate')
+
+
+    con=""
+    validarN="0"
+    validarCOR="0"
+    validarCel="0"
+    validarContra="0"
+
+    validarD="0"
+    con=(validarN,validarCOR,validarCel,validarContra,validarD)
+    return render_template('empleados/register_GMAIL.html', con=con)
+
+
+
+
+
+
+
+
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
+
+
+@app.route("/protected_area")
+@login_is_required
+def protected_area():
+    return f"Hello {session['namen']}!  {session['email']}  {session['phone_number']}  {session['birthdate']}<br/> <a href='/logout'><button>Logout</button></a>"
+
+
+
+
+
+@app.route('/gmailre', methods=['POST'])
+def gmailre():
+    sql="INSERT INTO `usuario` (`nombre`, `Correo`, `Numero`, `Nacimiento`, `Contraseña`) VALUES (%s, %s, %s, %s, %s);"
+    sql2="SELECT * FROM `usuario`;"
+    sql3="SELECT CORREO FROM `usuario` WHERE CORREO = %s;"
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql3,session["email"]) 
+    Correo=cursor.fetchall()       
+    conn.commit()
+    
+ 
+    validar=0
+
+    
+    con=""
+    validarN=0
+    validarCOR=0
+    validarCel=0
+    validarContra=0
+    validarReContra=1
+    validarD=0
+
+    _nombre=session["namen"]
+    _Correo=session["email"]
+    _celular="00000000"
+    _date="2023-05-05"
+    _contraseña=request.form['contraseña']
+    _REcontraseña=request.form['contraseñaRepeat']
+
+    
+    if _contraseña==_REcontraseña:
+        validarReContra=0
+
+    if len(_contraseña)<=5:
+        validar=1
+        validarContra=1
+    if Correo:
+        if session["email"]==Correo[0][0]:
+            validar=1
+            validarCOR=1
+
+    if len(_celular)<=5:
+        validar=1
+        validarCel=1
+
+    if len(_nombre)<=2:
+        validar=1
+        validarN=1
+
+
+    con=(validarN,validarCOR,validarCel,validarContra,validarD,validarReContra)
+    if validar==1:
+        return render_template('empleados/login.html')
+
+    if validar==0:
+
+        sql="INSERT INTO `usuario` (`nombre`, `Correo`, `Numero`, `Nacimiento`, `Contraseña`,`tipo`) VALUES (%s, %s, %s, %s, %s,%s);"
+        sql2="SELECT * FROM `usuario`;"
+        __TIPO=['0']
+        datos=(_nombre,_Correo,_celular,_date,_contraseña,__TIPO)
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql2)       
+        cursor.execute(sql,datos)  
+        conn.commit()
+        return render_template('empleados/login.html')
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -139,20 +318,21 @@ def Actualizar_AP(id):
 def Actualizar_Aparato(id):
 
 
-    sql="UPDATE `aparato` SET `Procesador` = %s, `Software` = %s, `Conectividad` = %s, `Bateria` = %s, `Precio medio` = %s, `Resolucion pantalla` = %s, `Mejor Uso` = %s, `Resumen` = %s WHERE `aparato`.`ID` = %s;"
+    sql="UPDATE `aparato` SET `Procesador` = %s, `Software` = %s, `Conectividad` = %s, `Bateria` = %s, `Precio Min` = %s, `Precio Max` = %s, `Resolucion pantalla` = %s, `Mejor Uso` = %s, `Resumen` = %s WHERE `aparato`.`ID` = %s;"
     
     _Procesador=request.form['Procesador']
     _Software=request.form['Software']
     _Conectividad=request.form['Conectividad']
     _Bateria=request.form['Bateria']
-    _Precio=request.form['Precio']
+    _PrecioMin=request.form['Precio Min']
+    _PrecioMax=request.form['Precio Max']
     _Resolucion=request.form['Resolucion']
     _Uso=request.form['Uso normal']
     _Resumen=request.form['Resumen']
     _ID=id
 
 
-    datos=(_Procesador,_Software,_Conectividad,_Bateria,_Precio,_Resolucion,_Uso,_Resumen,_ID)
+    datos=(_Procesador,_Software,_Conectividad,_Bateria,_PrecioMin,_PrecioMax,_Resolucion,_Uso,_Resumen,_ID)
     conn=mysql.connect()
     cursor=conn.cursor()      
     cursor.execute(sql,datos)  
@@ -288,7 +468,7 @@ def Guardar():
         cursor.execute(sql2)       
         cursor.execute(sql,datos)  
         conn.commit()
-        empleados=cursor.fetchall()
+        
         return redirect('/Crear.html')
 
 
@@ -332,12 +512,53 @@ def home():
 
     if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
         sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato LEFT JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato GROUP BY `aparato`.`ID`;"
+
+
         conn=mysql.connect()
         cursor=conn.cursor()
         cursor.execute(sql)  
         empleados=cursor.fetchall()
         conn.commit()
-        return render_template('empleados/Principal.html', aparato=empleados)
+
+        Bateria="SELECT Bateria FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Ba=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT `Mejor uso` FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Uso=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT `Resolucion pantalla` FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Tama=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT Conectividad FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Conec=cursor.fetchall()
+        conn.commit()
+
+
+
+
+
+        return render_template('empleados/Principal.html', aparato=empleados,Bateria=Ba,Tamaño=Tama,Conectividad=Conec,Uso=Uso)
     else:
         return render_template('empleados/index.html')
 
@@ -375,6 +596,22 @@ def borrar(id):
         return redirect("/")
     else:
         return redirect("/")
+    
+@app.route('/BorrarDP/<int:id>')
+def borrarDP(id):
+    if session['name'] == 2 or session['name'] == 1:
+
+        print(id)
+
+        sql="DELETE FROM `aparato` WHERE id=%s;"    
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql,id)  
+        conn.commit()
+
+        return redirect("/Gestion_dispositivos")
+    else:
+        return redirect("/")
 
 
 
@@ -388,7 +625,7 @@ def Registro():
     validarCOR="0"
     validarCel="0"
     validarContra="0"
-    validarReContra="1"
+
     validarD="0"
     con=(validarN,validarCOR,validarCel,validarContra,validarD)
     return render_template('empleados/register.html', con=con)
@@ -419,7 +656,6 @@ def Gestion():
     else:
         return render_template('empleados/index.html')
 
-
 @app.route("/Editar_Usuario/<int:id>")
 def EditarU(id):
     if session['name'] == 2 :
@@ -429,7 +665,6 @@ def EditarU(id):
         validarCOR="0"
         validarCel="0"
         validarContra="0"
-        validarReContra="1"
         validarD="0"
         con=(validarN,validarCOR,validarCel,validarContra,validarD)
         empleados=""
@@ -810,7 +1045,7 @@ def Buscar2(id):
 def Favoritos():
 
     if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
-        sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato JOIN favoritos ON aparato.ID = favoritos.APARATO_ID WHERE USER_ID = %s GROUP BY `aparato`.`ID`;"
+        sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato JOIN `valoracion` ON `aparato`.`ID` = `Valoracion`.`UD_aprato` JOIN favoritos ON `aparato`.`ID` = `favoritos`.`APARATO_ID` WHERE `favoritos`.`USER_ID` = %s GROUP BY `aparato`.`ID`;"
         UID = session['ID']
         conn=mysql.connect()
         cursor=conn.cursor()
@@ -866,7 +1101,112 @@ def BorrarFav(id):
 
 
 
-    
+@app.route('/Filtro', methods=['POST'])
+def Filtro():
+    if session['name'] == 2 or session['name'] == 1 or session['name'] == 0:
+        primero="0"
+        Bateria=request.form['Bateria']
+        Tamaño=request.form['Tamaño']
+        Uso=request.form['Uso']
+        Conectividad=request.form['Conectividad']
+        sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato LEFT JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato "
+       
+        if Bateria != "null" and primero == "0":
+            sql=sql+" WHERE Bateria = \""+Bateria+"\""
+            primero="1"
+            print(sql)
+
+
+
+        if Tamaño != "null" and primero == "0":
+            sql=sql+"WHERE `Resolucion pantalla`= \""+Tamaño+"\""
+            primero="1"
+            print(sql)
+            
+        elif Tamaño != "null":
+            sql=sql+" AND `Resolucion pantalla` = \""+Tamaño+"\""
+            print(sql)
+
+
+
+        if Uso != "null" and primero == "0":
+            sql=sql+"WHERE `Mejor uso`= \""+Uso+"\""
+            primero="1"
+            print(sql)
+            
+        elif Uso != "null":
+            sql=sql+" AND `Mejor uso` = \""+Uso+"\""
+            print(sql)
+
+
+
+        if Conectividad != "null" and primero == "0":
+            sql=sql+"WHERE `Conectividad`= \""+Conectividad+"\""
+            primero="1"
+            print(sql)
+            
+        elif Conectividad != "null":
+            sql=sql+" AND `Conectividad` = \""+Conectividad+"\""
+            print(sql)
+
+
+        sql=sql+" GROUP BY `aparato`.`ID`;"
+        print("SINTAXIS DEL FILTRO")
+        print(sql)
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql)  
+        Filtro=cursor.fetchall()
+        conn.commit()
+
+
+        sql="SELECT aparato.*, ROUND(AVG(valoracion.Valoracion),1) FROM aparato LEFT JOIN `valoracion` ON `aparato`.`ID` = Valoracion.UD_aprato GROUP BY `aparato`.`ID`;"
+
+
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(sql)  
+        empleados=cursor.fetchall()
+        conn.commit()
+
+        Bateria="SELECT Bateria FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Ba=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT `Mejor uso` FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Uso=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT `Resolucion pantalla` FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Tama=cursor.fetchall()
+        conn.commit()
+
+
+
+        Bateria="SELECT Conectividad FROM `aparato` GROUP BY 1;"
+        conn=mysql.connect()
+        cursor=conn.cursor()
+        cursor.execute(Bateria)  
+        Conec=cursor.fetchall()
+        conn.commit()
+
+
+        return render_template('empleados/Principal.html', aparato=Filtro,Bateria=Ba,Tamaño=Tama,Conectividad=Conec,Uso=Uso)
+    else:
+        return redirect('/')
 
 
 
